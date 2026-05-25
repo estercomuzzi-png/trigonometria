@@ -3,7 +3,8 @@
 }
 
 body {
-	background-color: rgb(240, 240, 240); /* white, #FFFFFF */
+	background-color: #000;
+	color: #fff;
 	padding: 2em;
 	margin: 0;
 	font-family: "Inter", sans-serif;
@@ -32,6 +33,7 @@ iframe {
 	display: block;
 	border: none;
 	width: 100%;
+	background-color: #000;
 }
 
 header,
@@ -43,16 +45,14 @@ section {
 }
 
 .filetto {
-	border-top: solid 1px black;
+	border-top: solid 1px #444;
 }
 
 .titolo-sezione {
 	margin-right: 1em;
 }
 
-.contenitore {
-	/* max-width: 54em; */
-}
+
 
 ul {
 	margin: 0;

@@ -1,0 +1,127 @@
+let graficoIstruzioniY = 40;
+
+function setup() {
+  // Tela responsive basata sulla finestra del browser
+  createCanvas(900, 500);
+}
+
+function draw() {
+  background(0);
+
+  // --- 1. ISTRUZIONI INTERATTIVE ---
+  fill(148, 161, 178);
+  noStroke();
+  textFont('Helvetica');
+  textSize(18);
+  text("Esplorazione della Funzione Seno", 40, 40);
+  textSize(13);
+  text("• Muovi il MOUSE a destra e sinistra per cambiare l'Angolo (θ)", 40, 65);
+
+  // --- 2. LOGICA MATEMATICA CORRENTE ---
+  // L'angolo dipende dalla posizione X del mouse sullo schermo (mappato tra 0 e 360 gradi)
+  let gradi = map(mouseX, 0, width, 0, 360);
+  gradi = constrain(gradi, 0, 360); // Blocca i valori dentro il range
+  let radianti = radians(gradi);
+  let sinVal = sin(radianti);
+
+  // Parametri geometrici fissi (senza zoom dinamico)
+  let raggio = 100; 
+  
+  // Centri dei due diagrammi
+  let cerchioX = 200;
+  let cerchioY = 350;
+  let graficoXStart = 400; // Punto in cui inizia l'asse cartesiano della sinusoide
+
+  // --- 3. DISEGNO: CERCHIO GONIOMETRICO (A SINISTRA) ---
+  // Assi del cerchio
+  stroke(60, 65, 75);
+  strokeWeight(1);
+  line(cerchioX - raggio - 20, cerchioY, cerchioX + raggio + 20, cerchioY);
+  line(cerchioX, cerchioY - raggio - 20, cerchioX, cerchioY + raggio + 20);
+
+  // Circonferenza unitaria
+  stroke(100, 110, 125);
+  noFill();
+  ellipse(cerchioX, cerchioY, raggio * 2);
+
+  // Vettore/Raggio rotante (Ipotenusa)
+  let px = cerchioX + cos(radianti) * raggio;
+  let py = cerchioY - sinVal * raggio; // Invertito per coordinate p5.js
+  stroke(255);
+  strokeWeight(2);
+  line(cerchioX, cerchioY, px, py);
+
+  // Segmento del SENO nel cerchio (Verde verticale)
+  stroke(46, 213, 115);
+  strokeWeight(3.5);
+  line(px, cerchioY, px, py);
+
+  // Punto mobile
+  fill(255, 71, 87);
+  noStroke();
+  ellipse(px, py, 8, 8);
+
+
+  // --- 4. DISEGNO: DIAGRAMMA CARTESIANO DEL SENO (A DESTRA) ---
+  let asseX_Lunghezza = 500;
+  
+  // Asse X (Angoli) e Asse Y (Valori del Seno)
+  stroke(60, 65, 75);
+  strokeWeight(1);
+  line(graficoXStart, cerchioY, graficoXStart + asseX_Lunghezza, cerchioY); // Asse Orientale θ
+  line(graficoXStart, cerchioY - raggio - 20, graficoXStart, cerchioY + raggio + 20); // Asse Valori
+
+  // Tracciamento dei limites +1 e -1 responsive sull'asse delle ordinate
+  fill(100, 110, 125);
+  textSize(11);
+  text("+1.0", graficoXStart - 30, cerchioY - raggio + 4);
+  text("-1.0", graficoXStart - 25, cerchioY + raggio + 4);
+  stroke(60, 65, 75, 100);
+  line(graficoXStart, cerchioY - raggio, graficoXStart + asseX_Lunghezza, cerchioY - raggio);
+  line(graficoXStart, cerchioY + raggio, graficoXStart + asseX_Lunghezza, cerchioY + raggio);
+
+  // --- 5. COSTRUZIONE IN DIRETTA DELLA SINUSOIDE ---
+  noFill();
+  stroke(46, 213, 115, 150); // Verde semitrasparente per l'onda passata
+  strokeWeight(2);
+  
+  beginShape();
+  // Disegna l'onda fino all'angolo in cui si trova il mouse
+  for (let xGradi = 0; xGradi <= gradi; xGradi += 1) {
+    let xPos = map(xGradi, 0, 360, graficoXStart, graficoXStart + asseX_Lunghezza);
+    let yPos = cerchioY - sin(radians(xGradi)) * raggio;
+    vertex(xPos, yPos);
+  }
+  endShape();
+
+  // --- 6. LINEA DI PROIEZIONE DIRETTISSIMA ---
+  // Questa linea tratteggiata unisce il punto del cerchio al rispettivo punto sull'onda cartesiana
+  let ondaXCorrente = map(gradi, 0, 360, graficoXStart, graficoXStart + asseX_Lunghezza);
+  stroke(255, 255, 255, 80);
+  strokeWeight(1);
+  // Effetto tratteggio manuale programmato
+  for (let lx = px; lx < ondaXCorrente; lx += 6) {
+    line(lx, py, lx + 3, py);
+  }
+
+  // Punto corrente sull'onda cartesiana
+  fill(46, 213, 115);
+  noStroke();
+  ellipse(ondaXCorrente, py, 10, 10);
+
+
+  // --- 7. TABELLA VALORI AGGIORNATA DINAMICAMENTE ---
+  fill(255);
+  textSize(16);
+  text(`Dati Istantanei:`, 720, 50);
+  textSize(15);
+  fill(255, 215, 0);
+  text(`Angolo θ = ${gradi.toFixed(1)}°`, 720, 80);
+  fill(46, 213, 115);
+  text(`Seno (y) = ${sinVal.toFixed(4)}`, 720, 110);
+  
+  // Nota didattica sull'ampiezza fisica
+  fill(120, 130, 140);
+  textSize(12);
+  text(`Altezza onda: ${(raggio).toFixed(0)} pixel`, 720, 145);
+}

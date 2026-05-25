@@ -13,7 +13,7 @@ let baseY = 400;
 let trascina = false;
 
 function setup() {
-  createCanvas(800, 440);
+  createCanvas(900, 500);
 }
 
 function draw() {
