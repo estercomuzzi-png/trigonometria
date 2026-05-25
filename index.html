@@ -2,254 +2,312 @@
 <html>
 
 <head>
-	<meta charset="utf-8">
-	<title>Trigonometria</title>
-	<meta name="author" content="Nome Cognome">
-	<meta name="description" content="Descrizione">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>Trigonometria</title>
+    <meta name="author" content="Nome Cognome">
+    <meta name="description" content="Descrizione">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
 
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
-	<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script>
-	<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"
-		onload="renderMathInElement(document.body);"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body);"></script>
 
-	<link rel="stylesheet" href="./assets/css/main.css">
+    <link rel="stylesheet" href="./assets/css/main.css">
+
+    <style>
+        html {
+            scroll-behavior: smooth; /* Scorrimento fluido */
+        }
+
+        /* Creazione del layout a due colonne */
+        .wrapper-sito {
+            display: flex;
+            align-items: flex-start;
+            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Barra laterale fissa per l'indice con sfondo nero */
+        .sidebar-indice {
+            width: 300px;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            background-color: #000000; /* Sfondo nero */
+            padding: 40px 24px;
+            box-sizing: border-box;
+            overflow-y: auto;
+            border-right: 1px solid #222222;
+        }
+
+        .sidebar-indice .titolo-indice {
+            color: #ffffff;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 24px;
+            border-bottom: 2px solid #222222;
+            padding-bottom: 10px;
+        }
+
+        .lista-indice {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        .lista-indice li {
+            margin-bottom: 16px;
+        }
+
+        /* Scritte bianche per l'indice */
+        .lista-indice a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            opacity: 0.80; /* Leggermente trasparente di base */
+            transition: opacity 0.2s ease-in-out;
+            display: inline-block;
+        }
+
+        /* Al passaggio del mouse cambia solo l'opacità, il colore resta bianco e il testo fermo */
+        .lista-indice a:hover {
+            opacity: 1;
+            color: #ffffff; /* Resta rigorosamente bianco */
+            text-decoration: none;
+        }
+
+        /* Contenitore principale a destra */
+        .contenitore-principale {
+            flex: 1;
+            padding: 20px; /* Adattabile in base al tuo main.css */
+        }
+
+        header h1 {
+            margin: 2rem 0;
+        }
+
+        /* Ottimizzazione per schermi piccoli (smartphone) */
+        @media (max-width: 768px) {
+            .wrapper-sito {
+                flex-direction: column;
+            }
+            .sidebar-indice {
+                width: 100%;
+                height: auto;
+                position: relative;
+                border-right: none;
+                border-bottom: 1px solid #222222;
+            }
+        }
+    </style>
 </head>
 
 <body>
-	<main class="contenitore">
 
-		<!-- --------------------------------------------------------------------- -->
+    <div class="wrapper-sito">
 
-		<header>
-			<span></span>
-			<h1>Introduzione alla trigonometria</h1>
-		</header>
+        <aside class="sidebar-indice">
+            <h4 class="titolo-indice">Indice</h4>
+            <ul class="lista-indice">
+                <li><a href="#sezione1">1. Cos'è la trigonometria?</a></li>
+                <li><a href="#sezione2">2. Origini</a></li>
+                <li><a href="#sezione3">3. Il triangolo rettangolo</a></li>
+                <li><a href="#sezione4">4. Teorema di Pitagora</a></li>
+                <li><a href="#funzioni">5. Funzioni trigonometriche</a></li>
+                <li><a href="#sezione6">6. Cerchio goniometrico</a></li>
+                <li><a href="#sezione7">7. Radianti e gradi</a></li>
+                <li><a href="#bibliografia">Bibliografia</a></li>
+            </ul>
+        </aside>
 
-		<!-- --------------------------------------------------------------------- -->
+        <main class="contenitore contenitore-principale">
 
-		<section class="filetto">
-			<h4 class="titolo-sezione">Sezione 1: <br>Cos'è la "trigonometria"?</h4>
-			<div class="contenuto-sezione">
-				<p>
-					La trigonometria, dal greco antico τρίγωνον?, trígonon ("triangolo") e μέτρον, métron ("misura"),
-					quindi 'risoluzione del triangolo', è la parte della matematica che studia i triangoli, a partire
-					dai loro angoli.
-					Il compito principale della trigonometria consiste nel calcolare le misure che caratterizzano gli
-					elementi di un triangolo (lati, angoli, mediane ecc.) partendo da altre misure già note (almeno tre,
-					di cui almeno una lunghezza), per mezzo di speciali funzioni.
+            <header>
+                <span></span>
+                <h1>Introduzione alla trigonometria</h1>
+            </header>
 
-				</p>
-				<iframe scrolling=no frameborder=0 height=500 src="./assets/sketches/triangolo_imm/"></iframe>
-			</div>
-		</section>
+            <section class="filetto" id="sezione1">
+                <h4 class="titolo-sezione">Sezione 1: <br>Cos'è la "trigonometria"?</h4>
+                <div class="contenuto-sezione">
+                    <p>
+                        La trigonometria, dal greco antico τρίγωνον?, trígonon ("triangolo") e μέτρον, métron ("misura"),
+                        quindi 'risoluzione del triangolo', è la parte della matematica che studia i triangoli, a partire
+                        dai loro angoli.
+                        Il compito principale della trigonometria consiste nel calcolare le misure che caratterizzano gli
+                        elementi di un triangolo (lati, angoli, mediane ecc.) partendo da altre misure già note (almeno tre,
+                        di cui almeno una lunghezza), per mezzo di speciali funzioni.
+                    </p>
+                    <iframe scrolling=no frameborder=0 height=500 src="./assets/sketches/triangolo_imm/"></iframe>
+                </div>
+            </section>
 
-		<!-- --------------------------------------------------------------------- -->
+            <section class="filetto" id="sezione2">
+                <h4 class="titolo-sezione">Sezione 2: <br>Origini</h4>
+                <div class="contenuto-sezione">
+                    <p>
+                        La trigonometria non è nata come un esercizio astratto di matematica pura, ma come uno strumento
+                        pratico ed essenziale per l'astronomia e la navigazione. La necessità di misurare ciò che era
+                        fisicamente inaccessibile ha spinto l'umanità a scoprire le relazioni segrete tra gli angoli e i
+                        lati dei triangoli.
+                    </p>
+                    <iframe scrolling=no frameborder=0 height=500 src="./assets/sketches/linea_tempo/"></iframe>
+                </div>
+            </section>
 
-		<section class="filetto">
-			<h4 class="titolo-sezione">Sezione 2: <br>Origini</h4>
-			<div class="contenuto-sezione">
-				<p>
-					La trigonometria non è nata come un esercizio astratto di matematica pura, ma come uno strumento
-					pratico ed essenziale per l'astronomia e la navigazione. La necessità di misurare ciò che era
-					fisicamente inaccessibile ha spinto l'umanità a scoprire le relazioni segrete tra gli angoli e i
-					lati dei triangoli.
+            <section class="filetto" id="sezione3">
+                <h4 class="titolo-sezione">Sezione 3: <br>Il triangolo rettangolo</h4>
+                <div class="contenuto-sezione">
+                    <p>
+                        Il cuore della trigonometria è il triangolo rettangolo, un triangolo caratterizzato dalla presenza
+                        di un angolo retto di 90°. I suoi lati prendono il nome di cateti, mentre il lato opposto all’angolo
+                        retto è chiamato ipotenusa.
+                        A partire da un angolo θ, la trigonometria studia le relazioni tra i lati del triangolo attraverso
+                        tre rapporti fondamentali: il seno, il coseno e la tangente, definiti come segue:
 
-				</p>
-				<iframe scrolling=no frameborder=0 height=500 src="./assets/sketches/linea_tempo/"></iframe>
-			</div>
-		</section>
+                        $$\sin(\alpha) = \frac{\text{cateto opposto}}{\text{ipotenusa}}$$
 
-		<!-- --------------------------------------------------------------------- -->
+                        $$\cos(\alpha) = \frac{\text{cateto adiacente}}{\text{ipotenusa}}$$
 
-		<section class="filetto">
-			<h4 class="titolo-sezione">Sezione 3: <br>Il triangolo rettangolo</h4>
-			<div class="contenuto-sezione">
-				<p>
-					Il cuore della trigonometria è il triangolo rettangolo, un triangolo caratterizzato dalla presenza
-					di un angolo retto di 90°. I suoi lati prendono il nome di cateti, mentre il lato opposto all’angolo
-					retto è chiamato ipotenusa.
-					A partire da un angolo θ, la trigonometria studia le relazioni tra i lati del triangolo attraverso
-					tre rapporti fondamentali: il seno, il coseno e la tangente, definiti come segue:
+                        $$\tan(\alpha) = \frac{\text{cateto opposto}}{\text{cateto adiacente}} =
+                        \frac{\sin(\alpha)}{\cos(\alpha)}$$
+                    </p>
+                </div>
+            </section>
 
-					$$\sin(\alpha) = \frac{\text{cateto opposto}}{\text{ipotenusa}}$$
+            <section class="filetto" id="sezione4">
+                <h4 class="titolo-sezione">Sezione 4: <br>Teorema di Pitagora</h4>
+                <div class="contenuto-sezione">
+                    <p>
+                        La trigonometria è strettamente legata al teorema di Pitagora, perché tutte le relazioni tra i lati
+                        del triangolo rettangolo dipendono da questa fondamentale regola geometrica. Il teorema afferma che,
+                        in un triangolo rettangolo, la somma dei quadrati dei due cateti è uguale al quadrato
+                        dell’ipotenusa.
+                        In formula, se a e b sono i cateti e c è l’ipotenusa, allora a² + b² = c².
+                        Grazie a questa relazione è possibile calcolare la lunghezza di un lato conoscendo gli altri due, ma
+                        anche comprendere i rapporti trigonometrici. Infatti seno, coseno e tangente derivano proprio dai
+                        rapporti tra i lati del triangolo rettangolo, che rispettano sempre il teorema di Pitagora.
+                    </p>
+                    <iframe scrolling=no frameborder=0 height=500 src="./assets/sketches/pitagora/"></iframe>
+                </div>
+            </section>
 
-					$$\cos(\alpha) = \frac{\text{cateto adiacente}}{\text{ipotenusa}}$$
+            <section id="funzioni" class="filetto">
+                <h4 class="titolo-sezione">Sezione 5 — Seno, coseno e tangente</h4>
+                <div class="corpo-sezione">
+                    <div class="sottosezione">
+                        <h5 class="titolo-sottosezione">1. Seno</h5>
+                        <p>
+                            La funzione seno descrive un andamento ondulatorio che oscilla continuamente tra −1 e 1.
+                            È una funzione periodica, cioè ripete sempre lo stesso andamento dopo un intervallo di 2π,
+                            e passa per l’origine degli assi cartesiani.
+                        </p>
+                        <iframe scrolling=no frameborder=0 height=500 src="./assets/sketches/seno/"></iframe>
+                    </div>
+                    <div class="sottosezione">
+                        <h5 class="titolo-sottosezione">2. Coseno</h5>
+                        <p>
+                            La funzione coseno ha un comportamento molto simile al seno, ma con una differenza importante:
+                            invece di partire da 0, parte dal valore 1. Anche il coseno oscilla tra −1 e 1 e possiede lo
+                            stesso periodo del seno.
+                        </p>
+                        <iframe scrolling=no frameborder=0 height=500 src="./assets/sketches/coseno/index.html"></iframe>
+                    </div>
+                    <div class="sottosezione">
+                        <h5 class="titolo-sottosezione">3. Tangente</h5>
+                        <p>
+                            La tangente è il rapporto tra il seno e il coseno di un angolo, oppure tra il cateto opposto e
+                            il cateto adiacente in un triangolo rettangolo. A differenza di seno e coseno, la tangente può
+                            assumere valori arbitrariamente grandi e presenta asintoti verticali quando il coseno si
+                            annulla.
+                        </p>
+                        <iframe scrolling=no frameborder=0 height=500 src="./assets/sketches/tangente/index.html"></iframe>
+                    </div>
+                    <div class="sottosezione">
+                        <h5 class="titolo-sottosezione">4. Funzioni</h5>
+                        <p>
+                            La funzione coseno ha un comportamento molto simile al seno, ma con una differenza importante:
+                            invece di partire da 0, parte dal valore 1. Anche il coseno oscilla tra −1 e 1 e possiede lo
+                            stesso periodo del seno.
+                        </p>
+                        <iframe scrolling=no frameborder=0 height=500
+                            src="./assets/sketches/funzioni_trigonometriche/"></iframe>
+                    </div>
+                </div>
+            </section>
 
-					$$\tan(\alpha) = \frac{\text{cateto opposto}}{\text{cateto adiacente}} =
-					\frac{\sin(\alpha)}{\cos(\alpha)}$$
+            <section class="filetto" id="sezione6">
+                <h4 class="titolo-sezione">Sezione 6: <br>Cerchio goniometrico</h4>
+                <div class="contenuto-sezione">
+                    <p>
+                        Il cerchio goniometrico è un cerchio di raggio 1 centrato nell’origine del piano cartesiano.
+                        Ogni angolo individua un punto preciso sul cerchio e permette di collegare geometria e
+                        trigonometria.
+                        Le coordinate del punto associato a un angolo sono:
+                        (cos⁡α,sin⁡α)(cosα,sinα)
+                        Questo significa che:
+                        l’ascissa corrisponde al coseno dell’angolo;
+                        l’ordinata corrisponde al seno dell’angolo.
+                        Grazie al cerchio goniometrico è possibile visualizzare facilmente le principali relazioni
+                        trigonometriche e comprendere il comportamento di seno e coseno.
+                    </p>
+                    <iframe scrolling=no frameborder=0 height=500 src="./assets/sketches/cerchio_goniometrico/"></iframe>
+                </div>
+            </section>
 
+            <section class="filetto" id="sezione7">
+                <h4 class="titolo-sezione">Sezione 7: <br>Radianti e gradi</h4>
+                <div class="contenuto-sezione">
+                    <p>
+                        Quando si misura un angolo, si possono usare due unità di misura diverse: i gradi e i radianti.
+                        Nella geometria di base si utilizzano soprattutto i gradi, mentre nella trigonometria avanzata e
+                        nell’analisi matematica i radianti diventano fondamentali.
+                        Il radiante nasce direttamente dal cerchio goniometrico ed è collegato alla lunghezza degli archi
+                        del cerchio. Un angolo misura 1 radiante quando intercetta un arco lungo quanto il raggio del
+                        cerchio.
 
-				</p>
-			</div>
+                        La relazione principale tra gradi e radianti è:
+                        180∘=π radianti180∘=π radianti
 
-		</section>
+                        L’uso dei radianti rende più semplici molte formule trigonometriche e permette di descrivere in modo
+                        più naturale il comportamento delle funzioni seno, coseno e tangente. Per questo motivo, in
+                        matematica e fisica i radianti sono spesso preferiti ai gradi.
+                    </p>
+                    <iframe scrolling=no frameborder=0 height=500 src="./assets/sketches/radianti/"></iframe>
 
-		<!-- --------------------------------------------------------------------- -->
+                    <iframe scrolling=no frameborder=0 height=500 src="./assets/sketches/tab_radianti/"></iframe>
+                </div>
+            </section>
 
-		<section class="filetto">
-			<h4 class="titolo-sezione">Sezione 4: <br>Teorema di Pitagora</h4>
-			<div class="contenuto-sezione">
-				<p>
-					La trigonometria è strettamente legata al teorema di Pitagora, perché tutte le relazioni tra i lati
-					del triangolo rettangolo dipendono da questa fondamentale regola geometrica. Il teorema afferma che,
-					in un triangolo rettangolo, la somma dei quadrati dei due cateti è uguale al quadrato
-					dell’ipotenusa.
-					In formula, se a e b sono i cateti e c è l’ipotenusa, allora a² + b² = c².
-					Grazie a questa relazione è possibile calcolare la lunghezza di un lato conoscendo gli altri due, ma
-					anche comprendere i rapporti trigonometrici. Infatti seno, coseno e tangente derivano proprio dai
-					rapporti tra i lati del triangolo rettangolo, che rispettano sempre il teorema di Pitagora.
+            <section class="filetto" id="bibliografia">
+                <h4 class="titolo-sezione">Bibliografia</h4>
+                <div class="contenuto-sezione">
+                    <ul>
+                        <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+                        <li>Maecenas quis ante sit amet neque cursus hendrerit ac sit amet nisl</li>
+                        <li>In cursus aliquam odio eu eleifend</li>
+                        <li>Ut sed auctor magna</li>
+                        <li>In hac habitasse platea dictumst</li>
+                        <li>Aliquam aliquam nisl mi</li>
+                        <li>Phasellus et orci elit</li>
+                        <li>Maecenas vehicula elit et lacus accumsan consequat</li>
+                        <li>Nam consectetur lacus ante</li>
+                        <li>Vestibulum et massa dolor</li>
+                        <li>Aenean condimentum blandit eros non dapibus</li>
+                        <li>Maecenas quam nulla, porta eu nibh in, cursus iaculis mauris</li>
+                        <li>Phasellus sit amet nulla eu tellus dictum cursus</li>
+                        <li>Sed aliquet, ipsum sit amet tempus semper, augue velit consequat mi, et gravida sem purus a quam</li>
+                    </ul>
+                </div>
+            </section>
+        </main>
 
-				</p>
-				<iframe scrolling=no frameborder=0 height=500 src="./assets/sketches/pitagora/"></iframe>
-			</div>
-		</section>
-
-		<!-- --------------------------------------------------------------------- -->
-
-		<section class="filetto">
-			<h4 class="titolo-sezione">Sezione 5: <br>Funzioni trigonometriche</h4>
-			<div class="contenuto-sezione">
-				<p>
-					Le funzioni trigonometriche sono strumenti fondamentali della matematica e permettono di studiare il
-					legame tra angoli e misure nel cerchio goniometrico. Le più importanti sono il seno, il coseno e la
-					tangente.
-					Il seno di un angolo θ è definito come il rapporto tra il cateto opposto e l’ipotenusa, mentre il
-					coseno è il rapporto tra il cateto adiacente e l’ipotenusa. La tangente, invece, è data dal rapporto
-					tra il cateto opposto e il cateto adiacente.
-					Queste funzioni non solo sono essenziali per risolvere i triangoli, ma hanno anche applicazioni in
-					molti campi, dalla fisica all’ingegneria, dalla musica alla grafica computerizzata. Inoltre, le
-					funzioni trigonometriche sono periodiche, il che significa che i loro valori si ripetono a
-					intervalli regolari, rendendole strumenti potenti per descrivere fenomeni ciclici come le onde
-					sonore e le oscillazioni.
-				</p>
-				<iframe scrolling=no frameborder=0 height=500 src="./assets/sketches/diagramma_funzioni/"></iframe>
-			</div>
-		</section>
-		<section id="funzioni" class="filetto">
-			<h4 class="titolo-sezione">Sezione 5 — Seno, coseno e tangente</h4>
-			<div class="corpo-sezione">
-				<div class="sottosezione">
-					<h5 class="titolo-sottosezione">1. Seno</h5>
-					<p>
-						La funzione seno descrive un andamento ondulatorio che oscilla continuamente tra −1 e 1.
-						È una funzione periodica, cioè ripete sempre lo stesso andamento dopo un intervallo di 2π,
-						e passa per l’origine degli assi cartesiani.
-					</p>
-					<iframe scrolling=no frameborder=0 height=500 src="./assets/sketches/seno/"></iframe>
-				</div>
-				<div class="sottosezione">
-					<h5 class="titolo-sottosezione">2. Coseno</h5>
-					<p>
-						La funzione coseno ha un comportamento molto simile al seno, ma con una differenza importante:
-						invece di partire da 0, parte dal valore 1. Anche il coseno oscilla tra −1 e 1 e possiede lo
-						stesso periodo del seno.
-					</p>
-					<iframe scrolling=no frameborder=0 height=500 src="./assets/sketches/coseno/index.html"></iframe>
-				</div>
-				<div class="sottosezione">
-					<h5 class="titolo-sottosezione">3. Tangente</h5>
-					<p>
-						La tangente è il rapporto tra il seno e il coseno di un angolo, oppure tra il cateto opposto e
-						il cateto adiacente in un triangolo rettangolo. A differenza di seno e coseno, la tangente può
-						assumere valori arbitrariamente grandi e presenta asintoti verticali quando il coseno si
-						annulla.
-					</p>
-					<iframe scrolling=no frameborder=0 height=500 src="./assets/sketches/tangente/index.html"></iframe>
-				</div>
-				<div class="sottosezione">
-					<h5 class="titolo-sottosezione">4. Funzioni</h5>
-					<p>
-						La funzione coseno ha un comportamento molto simile al seno, ma con una differenza importante:
-						invece di partire da 0, parte dal valore 1. Anche il coseno oscilla tra −1 e 1 e possiede lo
-						stesso periodo del seno.
-					</p>
-					<iframe scrolling=no frameborder=0 height=500
-						src="./assets/sketches/funzioni_trigonometriche/"></iframe>
-				</div>
-			</div>
-			</div>
-		</section>
-
-		<!-- --------------------------------------------------------------------- -->
-
-		<section class="filetto">
-			<h4 class="titolo-sezione">Sezione 6: <br>Cerchio goniometrico</h4>
-			<div class="contenuto-sezione">
-				<p>
-					Il cerchio goniometrico è un cerchio di raggio 1 centrato nell’origine del piano cartesiano.
-					Ogni angolo individua un punto preciso sul cerchio e permette di collegare geometria e
-					trigonometria.
-					Le coordinate del punto associato a un angolo sono:
-					(cos⁡α,sin⁡α)(cosα,sinα)
-					Questo significa che:
-					l’ascissa corrisponde al coseno dell’angolo;
-					l’ordinata corrisponde al seno dell’angolo.
-					Grazie al cerchio goniometrico è possibile visualizzare facilmente le principali relazioni
-					trigonometriche e comprendere il comportamento di seno e coseno.
-
-				</p>
-				<iframe scrolling=no frameborder=0 height=500 src="./assets/sketches/cerchio_goniometrico/"></iframe>
-			</div>
-		</section>
-
-		<!-- --------------------------------------------------------------------- -->
-
-		<section class="filetto">
-			<h4 class="titolo-sezione">Sezione 7: <br>Radianti e gradi</h4>
-			<div class="contenuto-sezione">
-				<p>
-					Quando si misura un angolo, si possono usare due unità di misura diverse: i gradi e i radianti.
-					Nella geometria di base si utilizzano soprattutto i gradi, mentre nella trigonometria avanzata e
-					nell’analisi matematica i radianti diventano fondamentali.
-					Il radiante nasce direttamente dal cerchio goniometrico ed è collegato alla lunghezza degli archi
-					del cerchio. Un angolo misura 1 radiante quando intercetta un arco lungo quanto il raggio del
-					cerchio.
-
-					La relazione principale tra gradi e radianti è:
-					180∘=π radianti180∘=π radianti
-
-					L’uso dei radianti rende più semplici molte formule trigonometriche e permette di descrivere in modo
-					più naturale il comportamento delle funzioni seno, coseno e tangente. Per questo motivo, in
-					matematica e fisica i radianti sono spesso preferiti ai gradi.
-
-				</p>
-				<iframe scrolling=no frameborder=0 height=500 src="./assets/sketches/radianti/"></iframe>
-
-				<iframe scrolling=no frameborder=0 height=500 src="./assets/sketches/tab_radianti/"></iframe>
-			</div>
-		</section>
-
-		<!-- --------------------------------------------------------------------- -->
-
-		<section class="filetto">
-			<h4 class="titolo-sezione">Bibliografia</h4>
-			<div class="contenuto-sezione">
-				<ul>
-					<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
-					<li>Maecenas quis ante sit amet neque cursus hendrerit ac sit amet nisl</li>
-					<li>In cursus aliquam odio eu eleifend</li>
-					<li>Ut sed auctor magna</li>
-					<li>In hac habitasse platea dictumst</li>
-					<li>Aliquam aliquam nisl mi</li>
-					<li>Phasellus et orci elit</li>
-					<li>Maecenas vehicula elit et lacus accumsan consequat</li>
-					<li>Nam consectetur lacus ante</li>
-					<li>Vestibulum et massa dolor</li>
-					<li>Aenean condimentum blandit eros non dapibus</li>
-					<li>Maecenas quam nulla, porta eu nibh in, cursus iaculis mauris</li>
-					<li>Phasellus sit amet nulla eu tellus dictum cursus</li>
-					<li>Sed aliquet, ipsum sit amet tempus semper, augue velit consequat mi, et gravida sem purus a quam
-					</li>
-				</ul>
-
-			</div>
-		</section>
-	</main>
-</body>
-
+    </div> </body>
 </html>
