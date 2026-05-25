@@ -1,25 +1,25 @@
-let raggio = 90;       // Dimensione del cerchio goniometrico
-let centroX = 250;     // Posizione X del centro del cerchio
-let centroY = 320;     // Abbassato leggermente per allinearsi alle proporzioni dell'esempio
-let graficoX = 450;    // Punto di partenza del grafico dell'onda (a destra)
+let graficoIstruzioniY = 40;
 
 function setup() {
-  // Stessa tela responsive basata sull'esempio del Seno
+  // Tela responsive basata sull'esempio - Dimensioni invariate
   createCanvas(1100, 500);
 }
 
 function draw() {
   background(0); // Sfondo nero fisso
 
-  // --- 1. ISTRUZIONI INTERATTIVE (CONGRUENTI CON L'ESEMPIO) ---
+  // --- 1. ISTRUZIONI INTERATTIVE (A SINISTRA - CON ANDATA A CAPO) ---
   fill(148, 161, 178);
   noStroke();
   textFont('Helvetica');
+  textAlign(LEFT); // Allineamento a sinistra per le istruzioni
   textSize(18);
-  text("Esplorazione della Funzione Coseno", 40, 40);
+  text("Esplorazione della Funzione Coseno", 5, 40); 
   textSize(13);
-  text("• Muovi il MOUSE a destra e sinistra per cambiare l'Angolo (θ)", 40, 65);
-  text("• Osserva lo spostamento sull'asse orizzontale (X) e la proiezione sulla cosinusoide", 40, 85);
+  text("• Muovi il MOUSE a destra e sinistra per cambiare l'Angolo (θ)", 5, 65);
+  // Spezzato in due righe per evitare la sovrapposizione con il centro
+  text("• Osserva lo spostamento sull'asse orizzontale (X)", 5, 85);
+  text("  e la proiezione sulla cosinusoide", 5, 102);
 
   // --- 2. LOGICA MATEMATICA CORRENTE ---
   let angolo = map(mouseX, 0, width, 0, 360);
@@ -27,8 +27,15 @@ function draw() {
   let rad = radians(angolo);          
   let valoreCoseno = cos(rad);        
 
+  // --- PARAMETRI GRAFICI ADATTATI ---
+  let raggio = 70;             
+  let asseX_Lunghezza = 400;   
+  
+  let centroX = 140;     
+  let centroY = 320;     
+  let graficoX = 280;    
+
   // --- 3. DISEGNO: CERCHIO GONIOMETRICO (A SINISTRA) ---
-  // Assi del cerchio (Uniformati allo stile scuro dell'esempio)
   stroke(60, 65, 75);
   strokeWeight(1);
   line(centroX - raggio - 20, centroY, centroX + raggio + 20, centroY);
@@ -61,15 +68,12 @@ function draw() {
 
 
   // --- 4. DISEGNO: DIAGRAMMA CARTESIANO DEL COSENO (A DESTRA) ---
-  let asseX_Lunghezza = 400;
-
-  // Asse X e Asse Y del grafico
   stroke(60, 65, 75);
   strokeWeight(1);
   line(graficoX, centroY, graficoX + asseX_Lunghezza, centroY); 
   line(graficoX, centroY - raggio - 20, graficoX, centroY + raggio + 20); 
 
-  // Tracciamento dei limiti +1 e -1 responsive sull'asse delle ordinate
+  // Tracciamento dei limiti +1 e -1
   fill(100, 110, 125);
   textSize(11);
   text("+1.0", graficoX - 30, centroY - raggio + 4);
@@ -80,7 +84,7 @@ function draw() {
 
 
   // --- 5. COSTRUZIONE IN DIRETTA DELLA COSINUSOIDE ---
-  stroke(255, 107, 107, 150); // Rosso semitrasparente per l'onda passata
+  stroke(255, 107, 107, 150); 
   strokeWeight(2);
   noFill();
   
@@ -94,13 +98,11 @@ function draw() {
 
 
   // --- 6. LINEA DI PROIEZIONE DIRETTISSIMA ---
-  // Unisce la fine del segmento del coseno (px) sul cerchio al rispettivo punto d'onda
-  let ondaX = map(angolo, 0, 360, graficoX, graficoX + 400);
+  let ondaX = map(angolo, 0, 360, graficoX, graficoX + asseX_Lunghezza);
   let ondaY = centroY - valoreCoseno * raggio;
 
   stroke(255, 255, 255, 80);
   strokeWeight(1);
-  // Effetto tratteggio manuale programmato coerente con il primo codice
   for (let ly = centroY; ly > ondaY; ly -= 6) {
     line(px, ly, px, ly - 3);
   }
@@ -114,18 +116,20 @@ function draw() {
   ellipse(ondaX, ondaY, 10, 10);
 
 
-  // --- 7. TABELLA VALORI AGGIORNATA DINAMICAMENTE (A DESTRA) ---
+  // --- 7. TABELLA VALORI (RIPRISTINATA IN ALTO AL CENTRO) ---
+  let posCentroX = width / 2; // Centro esatto dello schermo (550px)
+  textAlign(CENTER);          // Allineamento centrato simmetrico come richiesto
+  
   fill(255);
   textSize(16);
-  text(`Dati Istantanei:`, 710, 50);
+  text(`Dati Istantanei:`, posCentroX, 40); 
   textSize(15);
   fill(255, 215, 0);
-  text(`Angolo θ = ${angolo.toFixed(1)}°`, 710, 80);
+  text(`Angolo θ = ${angolo.toFixed(1)}°`, posCentroX, 65);
   fill(255, 107, 107);
-  text(`Coseno (x) = ${valoreCoseno.toFixed(4)}`, 710, 110);
+  text(`Coseno (x) = ${valoreCoseno.toFixed(4)}`, posCentroX, 90);
   
-  // Nota didattica sull'ampiezza fisica
   fill(120, 130, 140);
   textSize(12);
-  text(`Ampiezza onda: ${raggio} pixel`, 710, 145);
+  text(`Ampiezza onda: ${(raggio).toFixed(0)} pixel`, posCentroX, 115);
 }

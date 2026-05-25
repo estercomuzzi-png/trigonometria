@@ -40,6 +40,25 @@ iframe {
 	background-color: #000;
 }
 
+/* Uniform iframe/sketch sizing and alignment */
+.contenuto-sezione iframe,
+.corpo-sezione iframe,
+.sottosezione iframe {
+	height: 500px; /* uniform height for all embedded sketches */
+	max-width: 900px; /* limit width for very wide screens */
+	margin-left: 0; /* align to start of surrounding text */
+}
+
+/* Responsive: reduce height on small screens */
+@media only screen and (max-width: 900px) {
+	.contenuto-sezione iframe,
+	.corpo-sezione iframe,
+	.sottosezione iframe {
+		height: 360px;
+		max-width: 100%;
+	}
+}
+
 header,
 section {
 	display: grid;

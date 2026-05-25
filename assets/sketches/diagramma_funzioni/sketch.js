@@ -87,27 +87,29 @@ function draw() {
   }
 
   // 6. TESTI INFORMATIVI E LEGENDA (A SINISTRA)
-  fill(255);
-  textSize(16);
-  text("Muovi il mouse da sinistra a destra", 30, 40); // Testo originale ripristinato
+  fill(148, 161, 178);
+  textSize(18);
+  text("Muovi il mouse da sinistra a destra", 5, 40); // Testo originale ripristinato
   
-  textSize(14);
+  textSize(15);
   fill(255, 215, 0);
-  text("Angolo: " + floor(angolo) + "°", 30, 75);
+  text("Angolo: " + floor(angolo) + "°", 5, 75);
   
   // Voce Seno
+  textSize(13);
   fill(46, 213, 115);
-  text("Seno: " + valSeno.toFixed(3), 30, 110);
+  text("Seno: " + valSeno.toFixed(3), 5, 110);
   
   // Voce Coseno
+  textSize(13);
   fill(255, 107, 107);
-  text("Coseno: " + valCoseno.toFixed(3), 30, 135);
+  text("Coseno: " + valCoseno.toFixed(3), 5, 135);
   
   // Voce Tangente con gestione dell'infinito
   fill(255, 215, 0);
   if (floor(angolo) === 90 || floor(angolo) === 270) {
-    text("Tangente: ±∞", 30, 160);
+    text("Tangente: ±∞", 5, 160);
   } else {
-    text("Tangente: " + valTangente.toFixed(3), 30, 160);
+    text("Tangente: " + valTangente.toFixed(3), 5, 160);
   }
 }
