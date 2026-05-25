@@ -2,7 +2,7 @@ let graficoIstruzioniY = 40;
 
 function setup() {
   // Tela responsive basata sulla finestra del browser
-  createCanvas(900, 500);
+  createCanvas(1100, 500);
 }
 
 function draw() {

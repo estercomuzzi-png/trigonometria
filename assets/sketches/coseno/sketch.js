@@ -5,7 +5,7 @@ let graficoX = 450;    // Punto di partenza del grafico dell'onda (a destra)
 
 function setup() {
   // Stessa tela responsive basata sull'esempio del Seno
-  createCanvas(900, 500);
+  createCanvas(1100, 500);
 }
 
 function draw() {

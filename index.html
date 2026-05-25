@@ -12,6 +12,11 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
 
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
+	<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script>
+	<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"
+		onload="renderMathInElement(document.body);"></script>
+
 	<link rel="stylesheet" href="./assets/css/main.css">
 </head>
 
@@ -39,8 +44,7 @@
 					di cui almeno una lunghezza), per mezzo di speciali funzioni.
 
 				</p>
-				<iframe scrolling=no frameborder=0 height=500
-				src="./assets/sketches/triangolo_imm/"></iframe>
+				<iframe scrolling=no frameborder=0 height=500 src="./assets/sketches/triangolo_imm/"></iframe>
 			</div>
 		</section>
 
@@ -56,8 +60,7 @@
 					lati dei triangoli.
 
 				</p>
-				<iframe scrolling=no frameborder=0 height=500
-					src="./assets/sketches/linea_tempo/"></iframe>
+				<iframe scrolling=no frameborder=0 height=500 src="./assets/sketches/linea_tempo/"></iframe>
 			</div>
 		</section>
 
@@ -71,15 +74,19 @@
 					di un angolo retto di 90°. I suoi lati prendono il nome di cateti, mentre il lato opposto all’angolo
 					retto è chiamato ipotenusa.
 					A partire da un angolo θ, la trigonometria studia le relazioni tra i lati del triangolo attraverso
-					tre rapporti fondamentali: il seno, dato dal rapporto tra cateto opposto e ipotenusa; il coseno,
-					dato dal rapporto tra cateto adiacente e ipotenusa; e la tangente, ottenuta dividendo il cateto
-					opposto per il cateto adiacente.
+					tre rapporti fondamentali: il seno, il coseno e la tangente, definiti come segue:
+
+					$$\sin(\alpha) = \frac{\text{cateto opposto}}{\text{ipotenusa}}$$
+
+					$$\cos(\alpha) = \frac{\text{cateto adiacente}}{\text{ipotenusa}}$$
+
+					$$\tan(\alpha) = \frac{\text{cateto opposto}}{\text{cateto adiacente}} =
+					\frac{\sin(\alpha)}{\cos(\alpha)}$$
+
 
 				</p>
-				<iframe scrolling=no frameborder=0 height=500
-					src="./assets/sketches/triangolo/"></iframe>
 			</div>
-			
+
 		</section>
 
 		<!-- --------------------------------------------------------------------- -->
@@ -98,8 +105,7 @@
 					rapporti tra i lati del triangolo rettangolo, che rispettano sempre il teorema di Pitagora.
 
 				</p>
-				<iframe scrolling=no frameborder=0 height=500
-					src="./assets/sketches/pitagora/"></iframe>
+				<iframe scrolling=no frameborder=0 height=500 src="./assets/sketches/pitagora/"></iframe>
 			</div>
 		</section>
 
@@ -121,8 +127,7 @@
 					intervalli regolari, rendendole strumenti potenti per descrivere fenomeni ciclici come le onde
 					sonore e le oscillazioni.
 				</p>
-				<iframe scrolling=no frameborder=0 height=500
-					src="./assets/sketches/diagramma_funzioni/"></iframe>
+				<iframe scrolling=no frameborder=0 height=500 src="./assets/sketches/diagramma_funzioni/"></iframe>
 			</div>
 		</section>
 		<section id="funzioni" class="filetto">
@@ -135,8 +140,7 @@
 						È una funzione periodica, cioè ripete sempre lo stesso andamento dopo un intervallo di 2π,
 						e passa per l’origine degli assi cartesiani.
 					</p>
-					<iframe scrolling=no frameborder=0 height=500
-					src="./assets/sketches/seno/"></iframe>
+					<iframe scrolling=no frameborder=0 height=500 src="./assets/sketches/seno/"></iframe>
 				</div>
 				<div class="sottosezione">
 					<h5 class="titolo-sottosezione">2. Coseno</h5>
@@ -145,8 +149,7 @@
 						invece di partire da 0, parte dal valore 1. Anche il coseno oscilla tra −1 e 1 e possiede lo
 						stesso periodo del seno.
 					</p>
-					<iframe scrolling=no frameborder=0 height=500
-					src="./assets/sketches/coseno/index.html"></iframe>
+					<iframe scrolling=no frameborder=0 height=500 src="./assets/sketches/coseno/index.html"></iframe>
 				</div>
 				<div class="sottosezione">
 					<h5 class="titolo-sottosezione">3. Tangente</h5>
@@ -156,8 +159,7 @@
 						assumere valori arbitrariamente grandi e presenta asintoti verticali quando il coseno si
 						annulla.
 					</p>
-					<iframe scrolling=no frameborder=0 height=500
-					src="./assets/sketches/tangente/index.html"></iframe>
+					<iframe scrolling=no frameborder=0 height=500 src="./assets/sketches/tangente/index.html"></iframe>
 				</div>
 				<div class="sottosezione">
 					<h5 class="titolo-sottosezione">4. Funzioni</h5>
@@ -167,7 +169,7 @@
 						stesso periodo del seno.
 					</p>
 					<iframe scrolling=no frameborder=0 height=500
-					src="./assets/sketches/funzioni_trigonometriche/"></iframe>
+						src="./assets/sketches/funzioni_trigonometriche/"></iframe>
 				</div>
 			</div>
 			</div>
@@ -191,8 +193,7 @@
 					trigonometriche e comprendere il comportamento di seno e coseno.
 
 				</p>
-				<iframe scrolling=no frameborder=0 height=500
-					src="./assets/sketches/cerchio_goniometrico/"></iframe>
+				<iframe scrolling=no frameborder=0 height=500 src="./assets/sketches/cerchio_goniometrico/"></iframe>
 			</div>
 		</section>
 
@@ -217,11 +218,9 @@
 					matematica e fisica i radianti sono spesso preferiti ai gradi.
 
 				</p>
-				<iframe scrolling=no frameborder=0 height=500
-					src="./assets/sketches/radianti/"></iframe>
+				<iframe scrolling=no frameborder=0 height=500 src="./assets/sketches/radianti/"></iframe>
 
-					<iframe scrolling=no frameborder=0 height=500
-					src="./assets/sketches/tab_radianti/"></iframe>
+				<iframe scrolling=no frameborder=0 height=500 src="./assets/sketches/tab_radianti/"></iframe>
 			</div>
 		</section>
 

@@ -1,7 +1,7 @@
 const RAGGIO = 140; // Raggio visivo del cerchio in pixel (rappresenta R = 1)
 
 function setup() {
-  createCanvas(900, 500); // Dimensione standard dei precedenti progetti
+  createCanvas(1100, 500); // Dimensione standard dei precedenti progetti
 }
 
 function draw() {
