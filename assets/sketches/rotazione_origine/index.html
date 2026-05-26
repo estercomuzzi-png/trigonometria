@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Schema Triangolo Rettangolo</title>
+    <title>Grafico di Rotazione Trigonometrica</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
     <style>
         html, body {
@@ -10,11 +10,10 @@
             padding: 0;
             height: 100%;
             background-color: #000000;
-            overflow: hidden; /* Evita la comparsa di barre di scorrimento nell'iframe */
+            overflow: hidden; /* Nasconde le barre di scorrimento nell'iframe */
         }
-        /* Rimosse le proprietà che forzavano il canvas a deformarsi */
         canvas {
-            display: block;
+            display: block; /* Impedisce al browser di deformare i calcoli millimetrici di p5.js */
         }
     </style>
 </head>

@@ -1,34 +1,50 @@
-// Coordinate dei vertici del triangolo basate sull'immagine
-let xA = 245; // Angolo retto (in basso a sinistra)
-let yA = 400;
-let xB = 560; // Angolo alpha (in basso a destra)
-let yB = 400;
-let xC = 245; // Angolo beta (in alto a sinistra)
-let yC = 140;
+// --- DIMENSIONI FISSE DEL DISEGNO ---
+const LARGHEZZA_TRIANGOLO = 205;
+const SPAZIO_INTERMEDIO = 120; 
+const LARGHEZZA_LEGENDA = 220;
 
 function setup() {
-  createCanvas(900, 500); // Dimensione standard uniformata
+  let larghezzaCanvas = document.body.clientWidth || window.innerWidth;
+  createCanvas(larghezzaCanvas, 500); 
+}
+
+function windowResized() {
+  let larghezzaCanvas = document.body.clientWidth || window.innerWidth;
+  resizeCanvas(larghezzaCanvas, 500);
 }
 
 function draw() {
   background(0); // Sfondo nero fisso puro
   textFont('Helvetica');
 
-  // --- 1. ANGOLO RETTO (Quadratino grigio pieno) ---
-  noStroke();
-  fill(128); // Grigio medio come nell'immagine
-  rect(xA, yA - 24, 24, 24);
+  // --- PUNTO DI PARTENZA FISSO A SINISTRA ---
+  let inizioDisegnoX = 50; 
 
-  // --- 2. DISEGNO DEL TRIANGOLO ---
-  stroke(255); // Linea bianca
-  strokeWeight(3); // Spessore marcato ad alta qualità
+  // --- COORDINATE DEGLI ELEMENTI ---
+  
+  // --- 1. TRIANGOLO (Portato più in su per allinearsi alla legenda) ---
+  let xA = inizioDisegnoX; 
+  let yA = 300;                      // MODIFICATO: Alzata la base (era 370)
+  let xB = xA + LARGHEZZA_TRIANGOLO; 
+  let yB = 300;                      // MODIFICATO: Alzata la base (era 370)
+  let xC = xA; 
+  let yC = 130;                      // MODIFICATO: Alzato il vertice alto (era 200) per mantenere le proporzioni
+
+  // --- Quadratino angolo retto ---
+  noStroke();
+  fill(128); 
+  rect(xA, yA - 18, 18, 18); 
+
+  // --- Disegno del triangolo ---
+  stroke(255); 
+  strokeWeight(3); 
   noFill();
   triangle(xA, yA, xB, yB, xC, yC);
 
-  // --- 3. LETTERE SUI LATI ---
+  // --- Lettere sui lati ---
   noStroke();
   fill(255);
-  textSize(32); // Font grande per le lettere dei lati
+  textSize(26); 
 
   // Lato a (verticale)
   textAlign(RIGHT, CENTER);
@@ -40,24 +56,24 @@ function draw() {
 
   // Lato c (ipotenusa)
   textAlign(LEFT, CENTER);
-  text("c", (xB + xC) / 2 + 20, (yB + yC) / 2 - 15);
+  text("c", (xB + xC) / 2 + 15, (yB + yC) / 2 - 15);
 
-  // --- 4. ANGOLI GRECI (α e β) - PIÙ PICCOLI E CENTRATI ---
-  textSize(18); // Dimensione ridotta come richiesto
+  // --- Angoli greci (α e β) ---
+  textSize(16); 
 
-  // Angolo alpha (α) - Bilanciato e centrato geometricamente dentro la punta destra
+  // Angolo alpha (α)
   textAlign(CENTER, CENTER);
-  text("α", xB - 35, yB - 14);
+  text("α", xB - 28, yB - 12);
 
-  // Angolo beta (β) - Bilanciato e centrato geometricamente dentro la punta superiore
+  // Angolo beta (β)
   textAlign(CENTER, CENTER);
-  text("β", xC + 14, yC + 45);
+  text("β", xC + 12, yC + 35);
 
 
-  // --- 5. RIQUADRO LEGENDA (A DESTRA) ---
-  let boxX = 545;
-  let boxY = 95;
-  let boxW = 220;
+  // --- 2. LEGENDA (Altezza originaria rimasta invariata) ---
+  let boxX = xB + SPAZIO_INTERMEDIO; 
+  let boxY = 170; // La legenda parte da Y = 170 e finisce a Y = 300 (170 + 130 di altezza)
+  let boxW = LARGHEZZA_LEGENDA;
   let boxH = 130;
 
   // Bordo bianco del riquadro
