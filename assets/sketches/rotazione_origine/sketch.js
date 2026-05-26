@@ -4,6 +4,9 @@ let inizioDisegnoX = 0; // Allineato al margine assoluto
 // Variabile per accumulare l'angolo in modo continuo
 let angoloRotazione = 0; 
 
+// VARIABILE DI CONTROLLO: true = il punto ruota, false = il movimento è in pausa
+let inMovimento = true; 
+
 function setup() {
   createCanvas(windowWidth, windowHeight); 
 }
@@ -13,45 +16,60 @@ function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
 
+// FUNZIONE DI P5.JS: Intercetta il clic del mouse ovunque sulla tela
+function mousePressed() {
+  // Inverte lo stato (interruttore play/pausa)
+  inMovimento = !inMovimento;
+}
+
 function draw() {
   background(0); // Sfondo nero fisso puro
   textFont('Helvetica');
 
   // --- ORIGINE REINQUADRATA PER UN CERCHIO GRANDE ED ALLINEATO ---
   let origineX = 220; // Spostato abbastanza a destra per contenere il raggio da 160
-  let origineY = 290; // MODIFICATO: Abbassato leggermente a 290 per centrare l'asse Y simmetrico nello schermo
+  let origineY = 290; // Centrare l'asse Y simmetrico nello schermo
 
-  // Scala grafica di riferimento originale
+  // Scala grafica di riferimento originale (1 unità sul grafico = 2 pixel)
   let scala = 2; 
 
-  // --- PUNTO INIZIALE E INCREMENTO ANGOLO ---
-  let raggio = 160; // Raggio grande originale a 160px
-  let angoloIniziale = PI / 6; // 30 gradi
-  let x = origineX + raggio * cos(angoloIniziale);
-  let y = origineY - raggio * sin(angoloIniziale);
+  // --- IMPOSTAZIONE DIRETTA DEL PUNTO FISSO P(70, 40) ---
+  let p1_X = 70; // Coordinate fisse richieste sulla scala del grafico
+  let p1_Y = 40; 
 
-  // Aumentiamo l'angolo costantemente ad ogni frame (velocità di rotazione)
-  angoloRotazione += 0.015; 
+  // Convertiamo le coordinate del grafico in pixel relativi rispetto all'origine
+  let xTemp = p1_X * scala;
+  let yTemp = -p1_Y * scala; // Segno meno perché l'asse Y nei pixel del browser è invertito
 
-  // Calcolo delle nuove coordinate (Formule Trigonometriche)
-  let xTemp = x - origineX;
-  let yTemp = y - origineY;
+  // Calcoliamo il raggio effettivo di P dall'origine usando il teorema di Pitagora
+  let raggio = sqrt(xTemp * xTemp + yTemp * yTemp);
+
+  // Calcoliamo l'angolo iniziale effettivo di P per poter disegnare correttamente l'arco di θ
+  let angoloIniziale = atan2(-yTemp, xTemp);
+
+  // Sottraiamo l'angolo invece di sommarlo per la rotazione in SENSO ANTIORARIO
+  if (inMovimento) {
+    angoloRotazione -= 0.015; 
+  }
+
+  // Calcolo delle nuove coordinate ruotate (Formule Trigonometriche)
   let xRuotato = origineX + xTemp * cos(angoloRotazione) - yTemp * sin(angoloRotazione);
   let yRuotato = origineY + xTemp * sin(angoloRotazione) + yTemp * cos(angoloRotazione);
 
-  // Valori matematici effettivi da mostrare (espressi nella scala del grafico)
-  let p1_X = Math.round(xTemp / scala);
-  let p1_Y = Math.round(-yTemp / scala);
+  // Valori matematici effettivi del punto ruotato P' da mostrare (espressi nella scala del grafico)
   let p2_X = Math.round((xRuotato - origineX) / scala);
   let p2_Y = Math.round(-(yRuotato - origineY) / scala);
 
-  // --- 1. RIFERIMENTI NUMERICI FISSI (PROPORZIONATI AL RAGGIO 160) ---
+  // Coordinate assolute del punto fisso P sullo schermo
+  let x = origineX + xTemp;
+  let y = origineY + yTemp;
+
+  // --- 1. RIFERIMENTI NUMERICI FISSI (PROPORZIONATI AL PIANO GRANDE) ---
   stroke(60); 
   strokeWeight(1);
   fill(120);  
   textSize(11);
 
-  // Punti di riferimento adatti alla scala originale (100 e 200 unità di pixel)
   let puntiRiferimento = [100, 200]; 
 
   // Tracciamento tacchetti e numeri su Asse X
@@ -91,13 +109,16 @@ function draw() {
   // --- 3. DISEGNO DEGLI ASSI CARTESIANI BILANCIATI ---
   stroke(100); 
   strokeWeight(1.5);
-  
-  // Asse X esteso a tutta larghezza
   line(inizioDisegnoX, origineY, width, origineY); 
   
-  // MODIFICATO: L'asse Y adesso va da (origineY - 280) a (origineY + 280), risultando perfettamente simmetrico sopra e sotto
   let estensioneY = 280;
   line(origineX, origineY - estensioneY, origineX, origineY + estensioneY); 
+
+  // --- CIRCONFERENZA DI GUIDA (Tracciato esterno basato sul raggio esatto di P) ---
+  stroke(50);
+  strokeWeight(1);
+  noFill();
+  ellipse(origineX, origineY, raggio * 2, raggio * 2);
 
   // --- 4. RAGGI VETTORI ---
   stroke(255); // Bianco per P
@@ -111,13 +132,13 @@ function draw() {
   strokeWeight(2);
   noFill(); 
   
-  // Linea verde per i 30° iniziali
+  // Linea verde per l'angolo iniziale di P
   stroke(100, 255, 100); 
-  arc(origineX, origineY, raggio, raggio, -PI / 6, 0);
+  arc(origineX, origineY, raggio, raggio, -angoloIniziale, 0);
   
   // Linea blu per l'angolo theta dinamico continuo
   stroke(100, 100, 255); 
-  let angoloVisualizzato = angoloRotazione % TWO_PI;
+  let angoloVisualizzato = abs(angoloRotazione % TWO_PI);
   arc(origineX, origineY, raggio, raggio, -angoloIniziale - angoloVisualizzato, -angoloIniziale);
 
   // --- 6. DISEGNO DEI PUNTI GRANDI ORIGINALI ---
@@ -128,7 +149,7 @@ function draw() {
   fill(255, 100, 100); // Punto P'
   ellipse(xRuotato, yRuotato, 14, 14);
 
-  // --- 7. ETICHETTE E TESTI CHIARI ---
+  // --- 7. ETICHETTE E TESTI SUL PIANO ---
   textSize(20);
   fill(255);
   textAlign(LEFT, CENTER);
@@ -142,9 +163,45 @@ function draw() {
   
   fill(100, 255, 100);
   textSize(16);
-  text("30°", origineX + (raggio / 1.8) * cos(-PI / 12), origineY - (raggio / 1.8) * sin(-PI / 12));
+  let gradiIniziali = degrees(angoloIniziale);
+  text(nf(gradiIniziali, 1, 1) + "°", origineX + (raggio / 1.8) * cos(-angoloIniziale / 2), origineY - (raggio / 1.8) * sin(-angoloIniziale / 2));
   
+  // MODIFICATO: L'etichetta "θ = ..." adesso segue dinamicamente l'arco ruotando in senso antiorario a metà dell'apertura corrente
   fill(100, 100, 255);
   let gradiEffettivi = degrees(angoloVisualizzato);
-  text("θ = " + nf(gradiEffettivi, 1, 1) + "°", origineX + (raggio / 2.3) * cos(-angoloIniziale - angoloVisualizzato/2), origineY - (raggio / 2.3) * sin(-angoloIniziale - angoloVisualizzato/2));
+  let angoloMedioScritta = -angoloIniziale - (angoloVisualizzato / 2);
+  text("θ = " + nf(gradiEffettivi, 1, 1) + "°", origineX + (raggio / 2.3) * cos(angoloMedioScritta), origineY + (raggio / 2.3) * sin(angoloMedioScritta));
+
+
+  // --- 8. BLOCCO SCRITTE RIPOSIZIONATO (IN ALTO E A DESTRA) ---
+  let colonnaDatiX = 490; 
+  let rigaY = 60;         
+  
+  textAlign(LEFT, TOP);
+  noStroke();
+  
+  // Dati dinamici del Punto Fisso P
+  textSize(15);
+  fill(100, 255, 100); 
+  text(`Punto Fisso P: x = ${p1_X}, y = ${p1_Y}`, colonnaDatiX, rigaY);
+  
+  // Dati dinamici del Punto Ruotato P'
+  fill(255, 100, 100); 
+  text(`Punto Ruotato P': x' = ${p2_X}, y' = ${p2_Y}`, colonnaDatiX, rigaY + 30);
+  
+  // Stato Interattivo Corrente
+  textSize(13);
+  if (inMovimento) {
+    fill(46, 213, 115); 
+    text("● STATO: IN ROTAZIONE CONTINUA", colonnaDatiX, rigaY + 80);
+    fill(130);
+    textSize(12);
+    text("(Fai clic sullo schermo per mettere in pausa)", colonnaDatiX, rigaY + 105);
+  } else {
+    fill(255, 159, 67); 
+    text("▮▮ STATO: IN PAUSA", colonnaDatiX, rigaY + 80);
+    fill(130);
+    textSize(12);
+    text("(Fai clic sullo schermo per riprendere)", colonnaDatiX, rigaY + 105);
+  }
 }

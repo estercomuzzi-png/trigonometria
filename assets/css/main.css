@@ -83,7 +83,6 @@ header h1 {
     opacity: 0.85;
 }
 
-/* --- RIPRISTINATO: Rimosso CSS Grid, flusso verticale lineare --- */
 section.block {
     display: block; 
     padding: 2.5rem 0 0;
@@ -106,7 +105,6 @@ section.block:first-of-type {
     width: 100%;
 }
 
-/* Gestione degli articoli interni (Seno, Coseno, ecc.) */
 .section-body article {
     display: block;
     margin-top: 2rem;
@@ -119,10 +117,7 @@ section.block:first-of-type {
     font-weight: 700;
 }
 
-/* --- GRIGLIA E SPAZIATURA PER I TESTI --- */
-p,
-ul,
-.section-body li {
+p, ul, .section-body li {
     margin: 0 0 1.25rem 0;
     max-width: 55rem;
 }
@@ -131,35 +126,29 @@ ul {
     padding-left: 1.25rem;
 }
 
-/* --- CONFIGURAZIONE BASE IMMAGINI --- */
+/* --- CONFIGURAZIONE BASE IMMAGINI (OTTIMIZZATA) --- */
 img.img-base {
-    height: auto;
     display: block;
+    height: auto;
+    max-width: 100%; /* Rende automatico il responsive su tutti i telefoni */
     margin: 2rem 0;
 }
 
 /* --- COMANDI DI DIMENSIONE INDIVIDUALI PER LE IMMAGINI --- */
-/* Modifica i pixel (px) qui sotto per rimpicciolire o ingrandire ogni singola foto */
+/* Puoi cambiare liberamente questi valori in pixel per regolare la larghezza */
 
-.img-formule-triangolo {
-    width: 700px; 
-}
+.img-formule-triangolo { width: 700px; }
+.img-formule-pitagora  { width: 700px; }
+.img-radianti          { width: 700px; }
+.img-rotazione-origine { width: 500px; }
+.img-rotazione-punto   { width: 600px; }
 
-.img-formule-pitagora {
-    width: 700px; 
-}
+/* Ecco le tue ultime immagini corrette, ora puoi gestirle come vuoi: */
+.img-rotazione-x_r     { width: 400px; } 
+.img-rotazione-x1_r    { width: 450px; } 
+.img-rotazione-cos1    { width: 600px; } 
+.img-sistema           { width: 600px; } 
 
-.img-radianti {
-    width: 700px; 
-}
-
-.img-rotazione-origine {
-    width: 500px; 
-}
-
-.img-rotazione-punto {
-    width: 600px; 
-}
 
 /* --- CONFIGURAZIONE GLI IFRAME --- */
 iframe {
@@ -190,13 +179,6 @@ iframe {
         padding: 24px;
     }
     
-    /* Forza il riadattamento sui display piccoli per evitare che escano dallo schermo */
-    .img-formule-triangolo,
-    .img-formule-pitagora,
-    .img-radianti,
-    .img-rotazione-origine,
-    .img-rotazione-punto {
-        width: 100%;
-        max-width: 100%;
-    }
+    /* Nota: le vecchie classi con gli errori di virgole sono state rimosse 
+       perché gestite in modo nativo e pulito da 'max-width: 100%' su img.img-base */
 }

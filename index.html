@@ -68,7 +68,7 @@
                         <li><strong>I greci e la formalizzazione:</strong> Ipparco di Nicea (considerato il padre della
                             trigonometria) e Tolomeo creano le prime tavole geometriche per calcolare le corde delle
                             circonferenze, gettando le basi della disciplina.</li>
-                        <li><strong>Il mondo Indiano e Arabo:</strong> Gli studiosi indiani introducono il concetto
+                        <li><strong>Il mondo Indiano e Arabo:</strong> Gli studiosi indiani introducono il concept
                             moderno di seno, mentre i matematici arabi perfezionano e completano le sei funzioni
                             trigonometriche (seno, coseno, tangente, ecc.), traducendo e salvando i testi greci che poi
                             arriveranno in Europa.</li>
@@ -187,42 +187,51 @@
                 <h4 class="titolo-sezione">Applicazioni pratiche</h4>
                 <div class="section-body">
                     <article>
-                        <h5>Rotazione attorno all'origine</h5>
+                        <h5>Rotazione attorno all'origine - Il punto come una "lancetta"</h5>
                         <p>Una delle applicazioni pratiche più importanti della trigonometria nella programmazione
                             grafica,
                             nello sviluppo di videogiochi e nella robotica è la rotazione dei punti nel piano
                             cartesiano.
+                            Ruotare un punto attorno all'origine significa calcolare il seno e il coseno di un nuovo angolo composto (quello vecchio + quello della rotazione). Le formule di addizione sono lo strumento matematico che ti permette di farlo conoscendo solo la posizione di partenza del punto.
                         </p>
 
-                        <p>Il grafico rappresenta la rotazione di un punto nel piano cartesiano attorno all’origine
-                            degli assi O.
-                            Sullo schermo sono visibili gli assi cartesiani,e due punti principali: il punto iniziale
-                            P(x,y), mostrato in bianco, e il punto ruotato P′(x′,y′), mostrato in rosso. Il punto bianco
-                            mantiene sempre la stessa posizione, mentre il punto rosso cambia continuamente coordinate
-                            perché viene calcolato applicando una rotazione di angolo θ. L’angolo di rotazione è
-                            rappresentato visivamente da un arco blu che oscilla nel tempo, mostrando in modo intuitivo
-                            il movimento del punto lungo la circonferenza. La distanza dall’origine remains costante
-                            durante tutta l’animazione: questo accade perché la rotazione è un’isometria, cioè una
-                            trasformazione geometrica che modifica l’orientamento ma non la lunghezza del segmento che
-                            collega il punto al centro di rotazione.
+                        <p>Immagina l'origine degli assi (0,0) come il centro di un orologio. Il punto che vuoi ruotare è la punta di una lancetta.
+                        Questa lancetta ha due caratteristiche fondamentali:</p>
 
-                        </p>
+                        <ul>
+                            <li><strong>una lunghezza (che chiamiamo raggio R), cioè la distanza del punto dal centro</strong></li>
+                            <li><strong>un angolo iniziale rispetto all'orizzontale (chiamiamolo α)</strong></li>
+                        </ul>
+                        <p>Grazie alla trigonometria di base, la posizione orizzontale della punta (x) e quella verticale (y) dipendono da questa lancetta:</p>
+                        <ul>
+                            <li><strong>La x è data dalla lunghezza per il coseno dell'angolo</strong></li>
+                            <li><strong>La y è data dalla lunghezza per il seno dell'angolo</strong></li>
+                        </ul>
+                        
+                        <img src="./assets/immagine/x_r_x.png" alt="Formule rotazione" class="img-base img-rotazione-x_r">
+                    
+                        <h5>Cosa succede quando ruotiamo il punto?</h5>
+
                         <iframe scrolling="no" frameborder="0" src="./assets/sketches/rotazione_origine/"></iframe>
 
-                        <p>Dal punto di vista matematico, il grafico dimostra come seno e coseno permettano di calcolare
-                            la nuova posizione del punto dopo la rotazione. Ad ogni aggiornamento dell’animazione, le
-                            coordinate originali del punto P(x,y) vengono inserite nelle formule trigonometriche della
-                            rotazione:</p>
-                        <img src="./assets/immagine/punto_1.png" alt="Formule rotazione" class="img-base img-rotazione-origine">
-
-                        <p>Il risultato di questi calcoli produce le coordinate del punto rosso P′, che si muove
-                            continuamente attorno all’origine. Quando l’angolo è positivo la rotazione avviene in senso
-                            antiorario, mentre con angoli negativi il movimento diventa orario. L’animazione evidenzia
-                            inoltre il comportamento delle coordinate nei quattro quadranti del piano cartesiano: nei
-                            diversi settori cambiano infatti i segni del seno e del coseno, mostrando visivamente il
-                            legame tra geometria del cerchio goniometrico e formule trigonometriche.
-
+                        <p>La lunghezza della lancetta R è rimasta esattamente la stessa (perché girando non si allunga e non si accorcia). L'angolo però è cambiato: adesso l'angolo totale non è più solo α, ma è diventato (α+θ).
+                            Quindi, la nuova posizione orizzontale (x′) e la nuova posizione verticale (y′) del punto saranno semplicemente:
                         </p>
+                        
+                        <img src="./assets/immagine/x1_r_x.png" alt="Formule rotazione" class="img-base img-rotazione-x1_r">
+
+                        <p>Il problema è che noi in partenza non conosciamo l'angolo iniziale α e la lunghezza R, conosciamo solo le coordinate di partenza (x,y) e di quanto vogliamo ruotare (θ). Come facciamo a calcolare le nuove coordinate? </p>
+
+                        <p>Usiamo le formule di addizione per "smontare" quell'angolo (α+θ) dentro il seno e il coseno:</p>
+                        
+                        <img src="./assets/immagine/cos_1.png" alt="Formule rotazione" class="img-base img-rotazione-cos1">
+
+                        <p>Se inseriamo queste due identità nelle nostre formule di prima, con un semplice passaggio algebrico, la lunghezza R e l'angolo α spariscono e vengono magicamente rimpiazzati da x e y (le coordinate che già avevamo).
+                        </p>
+
+                        <p>Il risultato finale è questo sistema pulito:</p>
+                        
+                        <img src="./assets/immagine/sistema.png" alt="Formule rotazione" class="img-base img-sistema">
 
                     </article>
                     <article>
@@ -247,7 +256,6 @@
                             nell’origine del sistema cartesiano. Successivamente intervengono seno e coseno, che
                             determinano la nuova inclinazione del punto dopo la rotazione dell’angolo. Infine, i termini
                             (+cx) e (+cy) riportano il punto nella posizione reale del piano cartesiano.
-
                         </p>
 
                         <p>Nel grafico questo processo è visibile attraverso il movimento continuo del punto rosso
@@ -255,7 +263,6 @@
                             rimane invariata durante tutta l’animazione, mentre cambiano continuamente le coordinate
                             cartesiane del punto. La figura mostra quindi come le formule trigonometriche della rotazione
                             permettono di descrivere rotazioni attorno a qualsiasi punto del piano, non soltanto attorno all’origine.
-
                         </p>
                     </article>
                 </div>
