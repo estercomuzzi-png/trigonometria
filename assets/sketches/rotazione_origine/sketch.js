@@ -1,7 +1,5 @@
-// --- DIMENSIONI FISSE DEL DISEGNO (Ricalibrate per non tagliare il grafico) ---
-let inizioDisegnoX = 20; 
-let altezzaCanvas = 500;
-let larghezzaCanvas = 900; 
+// --- DIMENSIONI FISSE DEL DISEGNO (Ricalibrate e uniformate) ---
+let inizioDisegnoX = 0; // Allineato al margine assoluto
 
 // Variabile per accumulare l'angolo in modo continuo
 let angoloRotazione = 0; 
@@ -19,17 +17,15 @@ function draw() {
   background(0); // Sfondo nero fisso puro
   textFont('Helvetica');
 
-  // --- ORIGINE SPOSTATA PIÙ IN ALTO E REINQUADRATA ---
-  // Abbassiamo l'asse Y visivo portandolo più in alto (da height - 150 a height - 230)
-  // Spostiamo l'asse X visivo per tenere il cerchio al centro dell'area utile
-  let origineX = inizioDisegnoX + 220; 
-  let origineY = height - 230;
+  // --- ORIGINE REINQUADRATA PER UN CERCHIO GRANDE ED ALLINEATO ---
+  let origineX = 220; // Spostato abbastanza a destra per contenere il raggio da 160
+  let origineY = 290; // MODIFICATO: Abbassato leggermente a 290 per centrare l'asse Y simmetrico nello schermo
 
-  // Scala grafica: 1 unità nel disegno = 2 pixel sulla canvas
+  // Scala grafica di riferimento originale
   let scala = 2; 
 
   // --- PUNTO INIZIALE E INCREMENTO ANGOLO ---
-  let raggio = 160; // Leggermente ridotto (da 200 a 160) per garantire che non esca MAI dai margini dell'iframe
+  let raggio = 160; // Raggio grande originale a 160px
   let angoloIniziale = PI / 6; // 30 gradi
   let x = origineX + raggio * cos(angoloIniziale);
   let y = origineY - raggio * sin(angoloIniziale);
@@ -49,13 +45,13 @@ function draw() {
   let p2_X = Math.round((xRuotato - origineX) / scala);
   let p2_Y = Math.round(-(yRuotato - origineY) / scala);
 
-  // --- 1. RIFERIMENTI NUMERICI FISSI (RILOCATI SULLA NUOVA SCALA) ---
+  // --- 1. RIFERIMENTI NUMERICI FISSI (PROPORZIONATI AL RAGGIO 160) ---
   stroke(60); 
   strokeWeight(1);
   fill(120);  
   textSize(11);
 
-  // Nuovi punti di riferimento adatti al raggio ridotto (50 e 100 unità)
+  // Punti di riferimento adatti alla scala originale (100 e 200 unità di pixel)
   let puntiRiferimento = [100, 200]; 
 
   // Tracciamento tacchetti e numeri su Asse X
@@ -92,11 +88,16 @@ function draw() {
 
   drawingContext.setLineDash([]); 
 
-  // --- 3. DISEGNO DEGLI ASSI CARTESIANI ---
+  // --- 3. DISEGNO DEGLI ASSI CARTESIANI BILANCIATI ---
   stroke(100); 
   strokeWeight(1.5);
-  line(inizioDisegnoX, origineY, width, origineY); // Asse X
-  line(origineX, height, origineX, 0); // Asse Y
+  
+  // Asse X esteso a tutta larghezza
+  line(inizioDisegnoX, origineY, width, origineY); 
+  
+  // MODIFICATO: L'asse Y adesso va da (origineY - 280) a (origineY + 280), risultando perfettamente simmetrico sopra e sotto
+  let estensioneY = 280;
+  line(origineX, origineY - estensioneY, origineX, origineY + estensioneY); 
 
   // --- 4. RAGGI VETTORI ---
   stroke(255); // Bianco per P
@@ -119,7 +120,7 @@ function draw() {
   let angoloVisualizzato = angoloRotazione % TWO_PI;
   arc(origineX, origineY, raggio, raggio, -angoloIniziale - angoloVisualizzato, -angoloIniziale);
 
-  // --- 6. DISEGNO DEI PUNTI ---
+  // --- 6. DISEGNO DEI PUNTI GRANDI ORIGINALI ---
   noStroke();
   fill(255); // Punto P
   ellipse(x, y, 14, 14);
@@ -127,7 +128,7 @@ function draw() {
   fill(255, 100, 100); // Punto P'
   ellipse(xRuotato, yRuotato, 14, 14);
 
-  // --- 7. ETICHETTE E TESTI ---
+  // --- 7. ETICHETTE E TESTI CHIARI ---
   textSize(20);
   fill(255);
   textAlign(LEFT, CENTER);

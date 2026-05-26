@@ -1,13 +1,12 @@
 // Grafico Statico Ottimizzato: Il Cerchio Goniometrico e il Coseno
-// Dimensioni ridotte a 300x300 per integrarsi perfettamente nella colonna senza tagliarsi
 
 function setup() {
-  // Tela quadrata compatta per non essere tagliata dal layout della pagina
+  // Tela responsive basata sulla finestra del browser
   createCanvas(windowWidth, windowHeight);
 }
 
 function windowResized() {
-  // Adatta la tela alle nuove dimensioni della finestra
+  // Adatta la tela alle nuove dimensions della finestra
   resizeCanvas(windowWidth, windowHeight);
 }
 
@@ -20,10 +19,10 @@ function draw() {
   let valoreCoseno = cos(rad);        
   let valoreSeno = sin(rad);
 
-  // --- PARAMETRI GRAFICI ADATTATI AL NUOVO CANVAS ---
-  let raggio = 90;             // Raggio leggermente più grande per una visibilità ottimale
-  let centroX = width / 2;     // Centrato perfettamente nello spazio da 300px (150px)
-  let centroY = height / 2;    // Centrato perfettamente nello spazio da 300px (150px)
+  // --- PARAMETRI GRAFICI COMPATTI (MENO SPAZIO SOPRA E SOTTO) ---
+  let raggio = 70;             
+  let centroX = 140;           // Allineamento a sinistra a 140px
+  let centroY = 160;           // Alzato a 160px per ridurre lo spazio sopra e sotto
 
   // --- 1. DISEGNO ASSI CARTESIANI DEL CERCHIO ---
   stroke(60, 65, 75);
@@ -75,7 +74,7 @@ function draw() {
   strokeWeight(4);
   line(centroX, centroY, px, centroY); 
 
-  // --- 5. PUNTI E TESTI ---
+  // --- 5. PUNTI E TESTI SUL CERCHIO ---
   // Pallino verde sul punto P della circonferenza
   fill(46, 213, 115);
   noStroke();
@@ -85,4 +84,25 @@ function draw() {
   fill(240);
   textSize(13);
   text("P", px + 8, py - 4);
+
+
+  // --- 6. SCRITTE ALLINEATE A SINISTRA SOTTO IL CERCHIO (MOLTO PIÙ IN BASSO) ---
+  let scritteYStart = centroY + raggio + 120; // MODIFICATO: Spostate molto più in basso (+120px)
+  let scritteXStart = centroX - raggio;       // Coordinata X allineata al bordo sinistro del cerchio
+  
+  textAlign(LEFT, TOP);                       // MODIFICATO: Ripristinato l'allineamento a sinistra
+  noStroke();
+  textSize(13); 
+
+  // Riga 1: Punto P (Testo Verde)
+  fill(46, 213, 115);
+  text("Punto P sulla circonferenza", scritteXStart, scritteYStart); 
+
+  // Riga 2: Coseno (Testo Rosso - Interlinea ben spaziata a +25px)
+  fill(255, 107, 107);
+  text("Segmento Coseno cos(θ)", scritteXStart, scritteYStart + 25); 
+
+  // Riga 3: Angolo (Testo Oro - Interlinea ben spaziata a +50px)
+  fill(255, 215, 0);
+  text("Angolo θ (60°)", scritteXStart, scritteYStart + 50); 
 }
