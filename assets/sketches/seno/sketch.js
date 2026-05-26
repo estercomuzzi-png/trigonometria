@@ -2,11 +2,16 @@ let graficoIstruzioniY = 40;
 
 function setup() {
   // Tela responsive basata sulla finestra del browser - Dimensioni invariate
-  createCanvas(1100, 500);
+  createCanvas(windowWidth, windowHeight);
+}
+
+function windowResized() {
+  // Adatta la tela alle nuove dimensioni della finestra
+  resizeCanvas(windowWidth, windowHeight);
 }
 
 function draw() {
-  background(0);
+  background(255,0,0);
 
   // --- 1. ISTRUZIONI INTERATTIVE ---
   fill(148, 161, 178);

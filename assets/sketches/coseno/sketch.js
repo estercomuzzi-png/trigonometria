@@ -2,11 +2,15 @@ let graficoIstruzioniY = 40;
 
 function setup() {
   // Tela responsive basata sull'esempio - Dimensioni invariate
-  createCanvas(1100, 500);
+  createCanvas(windowWidth, windowHeight);
+}
+function windowResized() {
+  // Adatta la tela alle nuove dimensioni della finestra
+  resizeCanvas(windowWidth, windowHeight);
 }
 
 function draw() {
-  background(0); // Sfondo nero fisso
+  background(255,0,0); // Sfondo nero fisso
 
   // --- 1. ISTRUZIONI INTERATTIVE (A SINISTRA - CON ANDATA A CAPO) ---
   fill(148, 161, 178);
