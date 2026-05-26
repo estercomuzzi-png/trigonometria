@@ -3,7 +3,12 @@ let graficoY = 220;  // Centro verticale del grafico
 let raggio = 85;     // Ampiezza/Altezza di riferimento per le onde
 
 function setup() {
-  createCanvas(1100, 500); // Stessa dimensione standard uniformata
+  createCanvas(windowWidth, windowHeight); // Stessa dimensione standard uniformata
+}
+
+function windowResized() {
+  // Adatta la tela alle nuove dimensioni della finestra
+  resizeCanvas(windowWidth, windowHeight);
 }
 
 function draw() {

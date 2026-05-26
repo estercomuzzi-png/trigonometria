@@ -1,5 +1,10 @@
 function setup() {
-  createCanvas(1100, 500);
+  createCanvas(windowWidth, windowHeight);
+}
+
+function windowResized() {
+  // Adatta la tela alle nuove dimensioni della finestra
+  resizeCanvas(windowWidth, windowHeight);
 }
 
 function draw() {

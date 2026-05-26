@@ -3,7 +3,12 @@
 
 function setup() {
   // Tela quadrata compatta per non essere tagliata dal layout della pagina
-  createCanvas(300, 300);
+  createCanvas(windowWidth, windowHeight);
+}
+
+function windowResized() {
+  // Adatta la tela alle nuove dimensioni della finestra
+  resizeCanvas(windowWidth, windowHeight);
 }
 
 function draw() {

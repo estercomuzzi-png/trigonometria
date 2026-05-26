@@ -2,7 +2,12 @@ let graficoIstruzioniY = 40;
 
 function setup() {
   // Tela stabile (1100x500)
-  createCanvas(1100, 500);
+  createCanvas(windowWidth, windowHeight);
+}
+
+function windowResized() {
+  // Adatta la tela alle nuove dimensioni della finestra
+  resizeCanvas(windowWidth, windowHeight);
 }
 
 function draw() {

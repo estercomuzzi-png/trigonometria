@@ -13,7 +13,12 @@ let baseY = 400;
 let trascina = false;
 
 function setup() {
-  createCanvas(900, 500);
+  createCanvas(windowWidth, windowHeight);
+}
+
+function windowResized() {
+  // Adatta la tela alle nuove dimensioni della finestra
+  resizeCanvas(windowWidth, windowHeight);
 }
 
 function draw() {

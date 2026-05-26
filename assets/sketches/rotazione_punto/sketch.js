@@ -7,11 +7,12 @@ let larghezzaCanvas = 900;
 let angoloRotazione = 0; 
 
 function setup() {
-  createCanvas(larghezzaCanvas, altezzaCanvas); 
+  createCanvas(windowWidth, windowHeight); 
 }
 
 function windowResized() {
-  resizeCanvas(larghezzaCanvas, altezzaCanvas);
+  // Adatta la tela alle nuove dimensioni della finestra
+  resizeCanvas(windowWidth, windowHeight);
 }
 
 function draw() {

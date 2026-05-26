@@ -7,7 +7,12 @@ let xC = 200; // Vertice superiore (in alto a sinistra)
 let yC = 150;
 
 function setup() {
-  createCanvas(900, 500); // Dimensione standard uniformata
+  createCanvas(windowWidth, windowHeight); // Dimensione standard uniformata
+}
+
+function windowResized() {
+  // Adatta la tela alle nuove dimensioni della finestra
+  resizeCanvas(windowWidth, windowHeight);
 }
 
 function draw() {
