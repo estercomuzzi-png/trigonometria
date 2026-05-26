@@ -1,213 +1,113 @@
-let graficoIstruzioniY = 40;
+let raggio = 70; 
+let cx = 140; 
+let cy = 200;        // Spostato più in alto (da 280 a 200)
+let graficoXStart = 280; 
 
-    function setup() {
-      // Tela responsive basata sulla finestra del browser
-      createCanvas(windowWidth, windowHeight);
-    }
+let progresso = 0;   // Variabile di controllo per l'animazione del radiante
 
-    function windowResized() {
-      // Adatta la tela alle nuove dimensioni della finestra
-      resizeCanvas(windowWidth, windowHeight);
-    }
+function setup() {
+  // Tela responsive basata sulla finestra del browser
+  createCanvas(windowWidth, windowHeight);
+}
 
-    function draw() {
-      background(0); // Sfondo nero fisso coerente con lo stile del sito
+function windowResized() {
+  // Adatta la tela alle nuove dimensioni della finestra
+  resizeCanvas(windowWidth, windowHeight);
+}
 
-      // Parametri grafici adattati (Invariati)
-      let raggio = 70;             
-      let centroX = 140;     
-      let centroY = 280;     
-      let graficoX = 280;    
+function draw() {
+  background(0); // Sfondo nero per uniformare lo stile visivo
 
-      // Calcolo dinamico per il margine destro dello schermo
-      let asseX_Lunghezza = width - graficoX - 40;   
+  // --- 1. ISTRUZIONI E TESTI ---
+  fill(239, 71, 111); // Colore rosso/rosa del radiante per il titolo
+  noStroke();
+  textFont('Helvetica');
+  textAlign(LEFT, BASELINE); 
+  
+  textSize(18);
+  text("Il Radiante", 0, 40); 
+  
+  textSize(13);
+  fill(150);
+  text("• Quando l'arco è lungo quanto il raggio, l'angolo al centro è esattamente 1 Radiante (≈57.3°).", 0, 65); 
 
-      // --- 1. ISTRUZIONI INTERATTIVE (Riorganizzate per il Radiante) ---
-      fill(255, 215, 0); // Colore Oro (tema del radiante/arco)
-      noStroke();
-      textFont('Helvetica');
-      textAlign(LEFT, BASELINE);
-      
-      textSize(18);
-      text("Dimostrazione Geometrica del Radiante", 0, 40);
-      
-      textSize(13);
-      fill(200);
-      text("• Gira il MOUSE in cerchio attorno al centro per stendere l'arco sulla circonferenza.", 0, 65);
-      text("• Quando la lunghezza dell'Arco (Oro) è uguale al Raggio (Bianco), l'angolo è esattamente di 1 Radiante (~57.3°).", 0, 85);
+  // --- 2. ASSI E CIRCONFERENZA DI BASE ---
+  stroke(60, 65, 75);
+  strokeWeight(1);
+  line(cx - raggio - 20, cy, cx + raggio + 20, cy);
+  line(cx, cy - raggio - 20, cx, cy + raggio + 20);
 
-      // --- 2. LOGICA MATEMATICA ROTATORIA FLUIDA ---
-      let rad = 0;
-      
-      if (mouseX !== 0 || mouseY !== 0) {
-        rad = atan2(centroY - mouseY, mouseX - centroX);
-        if (rad < 0) {
-          rad += TWO_PI;
-        }
-      }
-             
-      let angoloDeg = degrees(rad);
-      // Lunghezza dell'arco corrente: s = r * theta
-      let lunghezzaArco = raggio * rad; 
-      // Lunghezza massima dell'arco (tutta la circonferenza)
-      let circonferenza = TWO_PI * raggio; 
+  // Circonferenza unitaria di base
+  stroke(100, 110, 125);
+  noFill();
+  strokeWeight(1);
+  ellipse(cx, cy, raggio * 2);
 
-      // --- 3. DISEGNO: CERCHIO TRIGONOMETRICO (A SINISTRA) ---
-      stroke(60, 65, 75);
-      strokeWeight(1);
-      line(centroX - raggio - 20, centroY, centroX + raggio + 20, centroY);
-      line(centroX, centroY - raggio - 20, centroX, centroY + raggio + 20);
+  // --- 3. LOGICA ANIMAZIONE VELOCE E CONTINUA ---
+  progresso += 0.015; // Velocità dell'animazione
+  if (progresso > 1.3) progresso = 0; // Reset rapido dopo una breve pausa
 
-      // Circonferenza di riferimento
-      stroke(100, 110, 125);
-      noFill();
-      ellipse(centroX, centroY, raggio * 2);
+  let angoloMax = 57.3; // 1 Radiante in gradi
+  let angoloCorrente = min(progresso, 1) * angoloMax;
 
-      // Valori fissi in radianti sui quattro quadranti
-      fill(80, 90, 100);
-      noStroke();
-      textSize(10);
-      textAlign(CENTER, CENTER);
-      text("0 rad", centroX + raggio + 22, centroY);
-      text("π/2", centroX, centroY - raggio - 12);
-      text("π rad", centroX - raggio - 22, centroY);
-      text("3/2π", centroX, centroY + raggio + 12);
+  // Spicchio d'angolo che si colora sotto l'arco
+  noStroke(); 
+  fill(239, 71, 111, 40); 
+  arc(cx, cy, raggio * 2, raggio * 2, -radians(angoloCorrente), 0, PIE);
 
-      // Raggio iniziale fisso (Base di partenza sull'asse X)
-      stroke(150, 150, 150, 150);
-      strokeWeight(2);
-      line(centroX, centroY, centroX + raggio, centroY);
+  // Raggi fissi di riferimento (Base e Chiusura)
+  stroke(255, 150); 
+  strokeWeight(2);
+  line(cx, cy, cx + raggio, cy); // Raggio Base
 
-      // --- DISEGNO DELL'ARCO SULLA CIRCONFERENZA (ORO) ---
-      if (rad > 0) {
-        noFill();
-        stroke(255, 215, 0); // Oro lucido per l'arco
-        strokeWeight(3.5);   // Evidenziato perché è il protagonista del grafico
-        arc(centroX, centroY, raggio * 2, raggio * 2, -rad, 0);
-        
-        // Indicatore dell'angolo interno theta
-        fill(255, 215, 0, 30);
-        stroke(255, 215, 0);
-        strokeWeight(1);
-        arc(centroX, centroY, 35, 35, -rad, 0, PIE);
+  if (progresso >= 1) {
+    // Raggio di chiusura a 1 Radiante
+    let radMax = radians(angoloMax);
+    line(cx, cy, cx + raggio * cos(radMax), cy - raggio * sin(radMax));
+    
+    // Testo "1 rad" posizionato dinamicamente vicino al raggio finale
+    fill(239, 71, 111); 
+    noStroke(); 
+    textSize(14); 
+    textAlign(CENTER, CENTER);
+    text("1 rad", cx + cos(radMax) * (raggio + 25), cy - sin(radMax) * (raggio + 25));
+  }
 
-        // Lettera greca "θ"
-        push();
-        noStroke();
-        fill(255, 215, 0);
-        textSize(12);
-        textAlign(CENTER, CENTER);
-        let metaAngolo = rad / 2;
-        let tx = centroX + cos(metaAngolo) * 25;
-        let ty = centroY - sin(metaAngolo) * 25;
-        text("θ", tx, ty);
-        pop();
-      }
+  // --- 4. IL FILO ROSSO (ARCO COSTRUITO DINAMICAMENTE) ---
+  stroke(239, 71, 111); 
+  strokeWeight(3.5); 
+  noFill();
+  
+  if (progresso <= 1) {
+    arc(cx, cy, raggio * 2, raggio * 2, -radians(angoloCorrente), 0);
+  } else {
+    arc(cx, cy, raggio * 2, raggio * 2, -radians(angoloMax), 0);
+  }
 
-      // Posizione del punto P mobile
-      let px = centroX + cos(rad) * raggio;
-      let py = centroY - sin(rad) * raggio; 
-
-      // Raggio vettore mobile (Linea bianca)
-      stroke(255);
-      strokeWeight(2);
-      line(centroX, centroY, px, py);
-
-      // Testo dinamico sul raggio mobile
-      noStroke();
-      fill(255);
-      textSize(11);
-      textAlign(CENTER, BOTTOM);
-      push();
-      translate((centroX + px) / 2, (centroY + py) / 2);
-      rotate(-rad);
-      text("r", 0, -3);
-      pop();
-
-      // Pallino verde sul punto P
-      fill(46, 213, 115);
-      noStroke();
-      ellipse(px, py, 8, 8);
-
-
-      // --- 4. DISEGNO: GRAFICO DI RETTIFICAZIONE DELL'ARCO (A DESTRA) ---
-      stroke(60, 65, 75);
-      strokeWeight(1);
-      // Asse X (Rappresenta lo srotolamento della circonferenza da 0 a 2π)
-      line(graficoX, centroY, graficoX + asseX_Lunghezza, centroY); 
-      // Asse Y (Rappresenta l'altezza/lunghezza dell'arco accumulata)
-      line(graficoX, centroY - raggio - 20, graficoX, centroY + raggio + 20); 
-
-      // Linea di riferimento tratteggiata per la misura di "1 Raggio" sull'asse Y grafico
-      stroke(255, 255, 255, 50);
-      line(graficoX, centroY - raggio, graficoX + asseX_Lunghezza, centroY - raggio);
-      
-      fill(100, 110, 125);
-      textSize(11);
-      textAlign(LEFT, CENTER);
-      text("Lungh. = 1 Raggio", graficoX - 105, centroY - raggio);
-      text("0", graficoX - 15, centroY);
-
-
-      // --- 5. COSTRUZIONE IN DIRETTA DELLO SVILUPPO DELL'ARCO ---
-      stroke(255, 215, 0, 150); 
-      strokeWeight(2.5);
-      noFill();
-      
-      beginShape();
-      for (let a = 0; a <= angoloDeg; a++) {
-        let xCurva = map(a, 0, 360, graficoX, graficoX + asseX_Lunghezza);
-        let currentRad = radians(a);
-        let yCurva = centroY - (currentRad * raggio); 
-        vertex(xCurva, yCurva);
-      }
-      endShape();
-
-
-      // --- 6. LINEE DI PROIEZIONE ASSIALI ---
-      let ondaX = map(angoloDeg, 0, 360, graficoX, graficoX + asseX_Lunghezza);
-      let ondaY = centroY - (rad * raggio);
-
-      stroke(255, 255, 255, 80);
-      strokeWeight(1);
-      
-      // Proiezione verticale dall'asse X del grafico fino al punto della retta
-      for (let ly = centroY; ly > ondaY; ly -= 6) {
-        line(ondaX, ly, ondaX, ly - 3);
-      }
-      
-      // Indicatore visivo sull'asse X del grafico per vedere l'avanzamento dei radianti
-      fill(255, 215, 0);
-      noStroke();
-      ellipse(ondaX, centroY, 5, 5);
-
-      // Pallino rosso sul grafico sul punto corrente dello sviluppo dell'arco
-      fill(255, 107, 107);
-      ellipse(ondaX, ondaY, 10, 10);
-
-
-      // --- 7. TABELLA VALORI (SOTTO IL GRAFICO, STRUTTURA IDENTICA) ---
-      let datiYStart = centroY + raggio + 50; 
-      textAlign(LEFT, TOP);                    
-      noStroke();
-      
-      // Titolo della sezione dati
-      fill(255);
-      textSize(15);
-      text("DATI GEOMETRICI:", graficoX, datiYStart); 
-      
-      // Angolo espresso direttamente in Radianti
-      textSize(14);
-      fill(255, 215, 0);
-      text(`Angolo θ = ${rad.toFixed(2)} rad`, graficoX + 160, datiYStart);
-      
-      // Rapporto Arco / Raggio
-      fill(46, 213, 115);
-      let rapporto = rad; 
-      text(`Arco / Raggio = ${rapporto.toFixed(2)}`, graficoX + 340, datiYStart);
-      
-      // Dati fissi di conversione e pixel
-      fill(120, 130, 140);
-      textSize(12);
-      text(`Arco: ${(lunghezzaArco).toFixed(0)} px | Raggio: ${raggio} px`, graficoX + 510, datiYStart + 2);
-    }
+  // --- 5. TABELLA VALORI IN VERTICALE ---
+  let datiXStart = cx - raggio;         
+  let datiYStart = cy + raggio + 65;    // Segue dinamicamente la nuova altezza del cerchio
+  
+  textAlign(LEFT, TOP);                    
+  noStroke();
+  
+  // Titolo della sezione dati
+  fill(255);
+  textSize(14);
+  text("DATI ANIMAZIONE:", datiXStart, datiYStart); 
+  
+  // Voci incolonnate una sotto l'altra con interlinea di 25px
+  textSize(13);
+  
+  // Riga 1: Angolo
+  fill(239, 71, 111);
+  text(`Angolo corrente: ${angoloCorrente.toFixed(1)}°`, datiXStart, datiYStart + 25);
+  
+  // Riga 2: Arco
+  fill(255, 215, 0);
+  text(`Arco rettificato: ${progresso <= 1 ? (progresso).toFixed(2) : "1.00"} R`, datiXStart, datiYStart + 50);
+  
+  // Riga 3: Ampiezza Raggio
+  fill(120, 130, 140);
+  text(`Raggio: ${(raggio).toFixed(0)} px`, datiXStart, datiYStart + 75);
+}
