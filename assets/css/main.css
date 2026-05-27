@@ -2,7 +2,9 @@ html {
     scroll-behavior: smooth;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
 
@@ -84,7 +86,7 @@ header h1 {
 }
 
 section.block {
-    display: block; 
+    display: block;
     padding: 2.5rem 0 0;
     border-top: 1px solid #444;
 }
@@ -117,7 +119,9 @@ section.block:first-of-type {
     font-weight: 700;
 }
 
-p, ul, .section-body li {
+p,
+ul,
+.section-body li {
     margin: 0 0 1.25rem 0;
     max-width: 55rem;
 }
@@ -130,30 +134,72 @@ ul {
 img.img-base {
     display: block;
     height: auto;
-    max-width: 100%; /* Rende automatico il responsive su tutti i telefoni */
+    max-width: 100%;
+    /* Rende automatico il responsive su tutti i telefoni */
     margin: 2rem 0;
 }
 
 /* --- COMANDI DI DIMENSIONE INDIVIDUALI PER LE IMMAGINI --- */
 /* Puoi cambiare liberamente questi valori in pixel per regolare la larghezza */
 
-.img-formule-triangolo { width: 700px; }
-.img-formule-pitagora  { width: 700px; }
-.img-radianti          { width: 700px; }
-.img-rotazione-origine { width: 500px; }
-.img-rotazione-punto   { width: 600px; }
+.img-formule-triangolo {
+    width: 700px;
+}
+
+.img-formule-pitagora {
+    width: 700px;
+}
+
+.img-radianti {
+    width: 700px;
+}
+
+.img-rotazione-origine {
+    width: 500px;
+}
+
+.img-rotazione-punto {
+    width: 600px;
+}
 
 /* Ecco le tue ultime immagini corrette, ora puoi gestirle come vuoi: */
-.img-rotazione-x_r     { width: 400px; } 
-.img-rotazione-x1_r    { width: 450px; } 
-.img-rotazione-cos1    { width: 600px; } 
-.img-sistema           { width: 600px; } 
+.img-rotazione-x_r {
+    width: 400px;
+}
+
+.img-rotazione-x1_r {
+    width: 450px;
+}
+
+.img-rotazione-cos1 {
+    width: 600px;
+}
+
+.img-sistema {
+    width: 600px;
+}
+
+.img-rotazione-1 {
+    width: 400px;
+}
+
+.img-rotazione-2 {
+    width: 550px;
+}
+
+.img-rotazione-3 {
+    width: 500px;
+}
+
+.img-rotazione-4 {
+    width: 500px;
+}
 
 
 /* --- CONFIGURAZIONE GLI IFRAME --- */
 iframe {
     width: 100%;
-    max-width: 100%; 
+    max-width: 100%;
     aspect-ratio: 16 / 9;
     border: none;
     background: #000;
@@ -178,7 +224,7 @@ iframe {
     .contenitore-principale {
         padding: 24px;
     }
-    
+
     /* Nota: le vecchie classi con gli errori di virgole sono state rimosse 
        perché gestite in modo nativo e pulito da 'max-width: 100%' su img.img-base */
 }

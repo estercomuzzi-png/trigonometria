@@ -236,37 +236,55 @@
                     </article>
                     <article>
                         <h5>Rotazione intorno a un punto</h5>
-                        <p>Il secondo grafico rappresenta la rotazione di un punto attorno a un centro arbitrario
-                            C(cx,cy), diverso dall’origine degli assi cartesiani. Il punto iniziale P(x,y) ruota attorno
-                            a questo centro mantenendo costante la distanza da C, descrivendo quindi una traiettoria
-                            circolare. L’angolo di rotazione determina la posizione del punto ruotato P'(x',y'): quando
-                            l’angolo aumenta il movimento avviene in senso antiorario, mentre con valori negativi
-                            avviene in senso orario.
+                        <p>Ora cambiamo scenario. Il nostro centro di rotazione non è più il comodo punto dell’orgine (0,0), ma è un punto qualsiasi nel vuoto, che chiamiamo C, con le sue coordinate. Vogliamo ruotare il punto P attorno a C sempre di un angolo O.
+Le formule dell’esercizio precedente non funzionano più direttamente, perché quelle formule pretendono che il perno sia lo zero. Se le usassimo così come sono, il punto ruoterebbe attorno all'origine, non attorno a C.
                         </p>
+                        <p>1. Fingiamo che C sia l'origine - Traslazione all'origine</p>
+                        <p>Prendiamo tutto il nostro disegno e lo isoliamo, spostandolo in modo che il centro C vada a finire esattamente sopra l'origine (0,0). Per fare questo, dobbiamo sottrarre le coordinate di C da quelle del nostro punto P.</p>
+                        <img src="./assets/immagine/1.png" alt="Formule rotazione" class="img-base img-rotazione-1">
+
+                        <p>2. Rotazione standard</p>
+                        <p>Adesso che il nostro perno è l'origine, possiamo usare le formule esatte del punto 1. Prendiamo le nostre distanze temporanee e le facciamo ruotare dell'angolo O:</p>
+                       <img src="./assets/immagine/2.png" alt="Formule rotazione" class="img-base img-rotazione-2">
+                        <p>Ora abbiamo ottenuto la nuova posizione del punto, ma è ancora espressa "rispetto a zero".</p>
+
+                        <p>3. Traslazione inversa</p>
+                        <p>Il disegno è stato ruotato, ma si trova ancora spostato verso l'origine. L'ultimo passo consiste nel ridare a tutto il sistema la sua posizione originale sul grafico. Prendiamo il punto appena calcolato e ci ri-sommiamo le coordinate del centro C:</p>
+                       <img src="./assets/immagine/3.png" alt="Formule rotazione" class="img-base img-rotazione-3">
+
                         <iframe scrolling="no" frameborder="0"
                             src="./assets/sketches/rotazione_punto/index.html"></iframe>
 
-                        <p>Le coordinate del punto ruotato vengono calcolate attraverso le formule:
+                        <p>Se uniamo questi tre passaggi in un'unica formula matematica, ecco cosa succede. Per ruotare un punto attorno a un centro C:
                         </p>
-                        <img src="./assets/immagine/punto_2.png" alt="Formule rotazione" class="img-base img-rotazione-punto">
+                        <img src="./assets/immagine/4.png" alt="Formule rotazione" class="img-base img-rotazione-4">
 
-                        <p>Queste equazioni mostrano chiaramente i tre passaggi geometrici della trasformazione. I
-                            termini (x-cx) e (y-cy) rappresentano lo spostamento del punto rispetto al centro di
-                            rotazione C. In pratica, il punto viene considerato come se il centro fosse temporaneamente
-                            nell’origine del sistema cartesiano. Successivamente intervengono seno e coseno, che
-                            determinano la nuova inclinazione del punto dopo la rotazione dell’angolo. Infine, i termini
-                            (+cx) e (+cy) riportano il punto nella posizione reale del piano cartesiano.
-                        </p>
-
-                        <p>Nel grafico questo processo è visibile attraverso il movimento continuo del punto rosso
-                            P'(x',y'), che ruota attorno al centro C seguendo una circonferenza. La distanza dal centro
-                            rimane invariata durante tutta l’animazione, mentre cambiano continuamente le coordinate
-                            cartesiane del punto. La figura mostra quindi come le formule trigonometriche della rotazione
-                            permettono di descrivere rotazioni attorno a qualsiasi punto del piano, non soltanto attorno all’origine.
-                        </p>
+                        <ul>
+                            <li><strong>Confronto con la rotazione standard: Il meccanismo di base sfrutta la stessa identica logica della rotazione attorno all'origine. La differenza risiede nel fatto che non si utilizzano le coordinate assolute del punto, ma la distanza in passi che separa il punto dal centro di rotazione scelto.</strong></li>
+                            <li><strong>Riposizionamento del perno: Una volta completata la rotazione di queste distanze, è fondamentale sommare nuovamente la posizione del centro reale. Questo passaggio serve a ricollocare il perno al suo posto naturale sulla mappa, evitando che il disegno rimanga spostato sullo zero.
+</strong></li>
+                            <li><strong>Verifica di coerenza: Nel caso in cui il centro di rotazione coincidesse perfettamente con l'origine (0,0), le distanze calcolate tornerebbero a essere le coordinate di partenza e non ci sarebbe alcun valore da ri-sommare alla fine. Di conseguenza, tutti i fattori di spostamento si annullerebbero, riconducendo il sistema alla rotazione standard.
+</strong></li>
+                        </ul>
+                        
                     </article>
                 </div>
+
             </section>
+
+            <div class="colophon" style="position: fixed; bottom: 40px; left: 20px; width: 240px; line-height: 1.3; z-index: 1000; text-align: left; font-size: 0.89em;">
+    <div style="border-bottom: 1px solid rgba(255, 255, 255, 0.2); padding-bottom: -6px; margin-bottom: 22px; width: 100%;">
+        <h4 class="titolo-indice" style="margin: 0 0 -2px 0; color: #ffffff; border: none !important; border-bottom: none !important;">Colophon</h4>
+    </div>
+    
+    <p style="margin: 0; font-size: 0.75em; color: #ffffff; opacity: 0.8;">
+        Ester Comuzzi | Irene Feligioni<br>
+        Matematica per il design 2026
+    </p>
+    <p style="margin: 10px 0 0 0; font-size: 0.72em;">
+        <a href="https://github.com/made-isia/2026#gruppi-di-lavoro-e-progetti" target="_blank" style="color: #ffffff; opacity: 0.6; text-decoration: underline;">Repository del corso</a>
+    </p>
+</div>
 
             <section id="bibliografia" class="block">
                 <h4 class="titolo-sezione">Bibliografia</h4>
