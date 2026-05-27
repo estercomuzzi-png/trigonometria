@@ -59,7 +59,7 @@ body {
     padding-left: 14px; /* Crea lo spazio perfetto per il pallino custom */
 }
 
-/* MODIFICATO: Ricreiamo il pallino in modo che il testo a capo si allinei al millimetro */
+/* MODIFICATO: Ricreiamo il pallino in modo che il testo a capo si allieni al millimetro */
 .lista-indice li::before {
     content: "•";
     position: absolute;
@@ -162,11 +162,11 @@ section.block:first-of-type {
     line-height: 1.6;
 }
 
-/* Garantisce l'allineamento perfetto e lo stile azzurro per i 3 passi */
+/* Garantisce l'allineamento perfetto e lo stile per i 3 passi (ora in bianco) */
 .section-body article p strong {
     display: block;
     font-size: 1.1rem;
-    color: #00d2ff; 
+    color: #ffffff; 
     margin-top: 2.5rem;
     margin-bottom: 0.5rem;
     margin-left: 0;       
@@ -215,6 +215,19 @@ ul li strong {
     margin-bottom: 0.8rem;
     border-radius: 0;
     color: #b3b3b3;
+}
+
+/* --- STILE LINK SITOGRAFIA --- */
+#sitografia .section-body a {
+    color: inherit; /* Eredita il colore grigio del testo circostante (#b3b3b3) */
+    text-decoration: underline; /* Mantiene la sottolineatura per l'accessibilità dei link */
+    opacity: 0.85;
+    transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+#sitografia .section-body a:hover {
+    color: #fff; /* Diventa bianco puro al passaggio del mouse */
+    opacity: 1;
 }
 
 /* --- CONFIGURAZIONE IMMAGINI E IFRAME --- */
