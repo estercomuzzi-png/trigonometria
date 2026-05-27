@@ -8,12 +8,14 @@ let angoloRotazione = 0;
 let inMovimento = true; 
 
 function setup() {
-  createCanvas(windowWidth, windowHeight); 
+  let larghezzaCanvas = document.body.clientWidth || window.innerWidth;
+  // MODIFICATO: Altezza ridotta a 370px per adattarsi al grafico rimpicciolito del 20%
+  createCanvas(larghezzaCanvas, 370); 
 }
 
 function windowResized() {
-  // Adatta la tela alle nuove dimensioni della finestra
-  resizeCanvas(windowWidth, windowHeight);
+  let larghezzaCanvas = document.body.clientWidth || window.innerWidth;
+  resizeCanvas(larghezzaCanvas, 370);
 }
 
 // FUNZIONE DI P5.JS: Intercetta il clic del mouse ovunque sulla tela
@@ -26,20 +28,20 @@ function draw() {
   background(0); // Sfondo nero fisso puro
   textFont('Helvetica');
 
-  // --- ORIGINE REINQUADRATA PER UN CERCHIO GRANDE ED ALLINEATO ---
-  let origineX = 220; // Spostato abbastanza a destra per contenere il raggio da 160
-  let origineY = 290; // Centrare l'asse Y simmetrico nello schermo
+  // --- ORIGINE REINQUADRATA E COMPATTATA (-20%) ---
+  let origineX = 180; // Spostata a sinistra (era 220)
+  let origineY = 200; // Spostata molto più in su (era 290) per eliminare il vuoto
 
-  // Scala grafica di riferimento originale (1 unità sul grafico = 2 pixel)
-  let scala = 2; 
+  // MODIFICATO: Scala ridotta del 20% (da 2 a 1.6)
+  let scala = 1.6; 
 
   // --- IMPOSTAZIONE DIRETTA DEL PUNTO FISSO P(70, 40) ---
-  let p1_X = 70; // Coordinate fisse richieste sulla scala del grafico
+  let p1_X = 70; 
   let p1_Y = 40; 
 
   // Convertiamo le coordinate del grafico in pixel relativi rispetto all'origine
   let xTemp = p1_X * scala;
-  let yTemp = -p1_Y * scala; // Segno meno perché l'asse Y nei pixel del browser è invertito
+  let yTemp = -p1_Y * scala; 
 
   // Calcoliamo il raggio effettivo di P dall'origine usando il teorema di Pitagora
   let raggio = sqrt(xTemp * xTemp + yTemp * yTemp);
@@ -64,30 +66,31 @@ function draw() {
   let x = origineX + xTemp;
   let y = origineY + yTemp;
 
-  // --- 1. RIFERIMENTI NUMERICI FISSI (PROPORZIONATI AL PIANO GRANDE) ---
+  // --- 1. RIFERIMENTI NUMERICI FISSI (PROPORZIONATI AL PIANO -20%) ---
   stroke(60); 
   strokeWeight(1);
   fill(120);  
-  textSize(11);
+  textSize(10);
 
-  let puntiRiferimento = [100, 200]; 
+  // Punti di riferimento ricalcolati sulla nuova scala
+  let puntiRiferimento = [80, 160]; 
 
   // Tracciamento tacchetti e numeri su Asse X
   textAlign(CENTER, TOP);
   for (let p of puntiRiferimento) {
     line(origineX + p, origineY - 4, origineX + p, origineY + 4);
-    text(p / scala, origineX + p, origineY + 8);
+    text(Math.round(p / scala), origineX + p, origineY + 8);
     line(origineX - p, origineY - 4, origineX - p, origineY + 4);
-    text("-" + (p / scala), origineX - p, origineY + 8);
+    text("-" + Math.round(p / scala), origineX - p, origineY + 8);
   }
 
   // Tracciamento tacchetti e numeri su Asse Y
   textAlign(RIGHT, CENTER);
   for (let p of puntiRiferimento) {
     line(origineX - 4, origineY - p, origineX + 4, origineY - p);
-    text(p / scala, origineX - 8, origineY - p);
+    text(Math.round(p / scala), origineX - 8, origineY - p);
     line(origineX - 4, origineY + p, origineX + 4, origineY + p);
-    text("-" + (p / scala), origineX - 8, origineY + p);
+    text("-" + Math.round(p / scala), origineX - 8, origineY + p);
   }
 
   // --- 2. LINEE DI PROIEZIONE TRATTEGGIATE ---
@@ -111,21 +114,22 @@ function draw() {
   strokeWeight(1.5);
   line(inizioDisegnoX, origineY, width, origineY); 
   
-  let estensioneY = 280;
+  // MODIFICATO: Accorciata l'estensione verticale degli assi (era 280)
+  let estensioneY = 220;
   line(origineX, origineY - estensioneY, origineX, origineY + estensioneY); 
 
-  // --- CIRCONFERENZA DI GUIDA (Tracciato esterno basato sul raggio esatto di P) ---
+  // --- CIRCONFERENZA DI GUIDA ---
   stroke(50);
   strokeWeight(1);
   noFill();
   ellipse(origineX, origineY, raggio * 2, raggio * 2);
 
   // --- 4. RAGGI VETTORI ---
-  stroke(255); // Bianco per P
-  strokeWeight(3); 
+  stroke(255); 
+  strokeWeight(2.5); 
   line(origineX, origineY, x, y);
   
-  stroke(255, 100, 100); // Rosso per P'
+  stroke(255, 100, 100); 
   line(origineX, origineY, xRuotato, yRuotato);
 
   // --- 5. ARCHI DEGLI ANGOLI ---
@@ -141,67 +145,78 @@ function draw() {
   let angoloVisualizzato = abs(angoloRotazione % TWO_PI);
   arc(origineX, origineY, raggio, raggio, -angoloIniziale - angoloVisualizzato, -angoloIniziale);
 
-  // --- 6. DISEGNO DEI PUNTI GRANDI ORIGINALI ---
+  // --- 6. DISEGNO DEI PUNTI ---
   noStroke();
-  fill(255); // Punto P
-  ellipse(x, y, 14, 14);
+  fill(255); 
+  ellipse(x, y, 11, 11); // Leggermente più piccoli per proporzione
   
-  fill(255, 100, 100); // Punto P'
-  ellipse(xRuotato, yRuotato, 14, 14);
+  fill(255, 100, 100); 
+  ellipse(xRuotato, yRuotato, 11, 11);
 
   // --- 7. ETICHETTE E TESTI SUL PIANO ---
-  textSize(20);
+  textSize(16);
   fill(255);
   textAlign(LEFT, CENTER);
-  text("O(0, 0)", origineX + 12, origineY + 18);
+  text("O(0, 0)", origineX + 10, origineY + 15);
   
-  textSize(18);
-  text("P(" + p1_X + ", " + p1_Y + ")", x + 12, y - 12);
+  textSize(15);
+  text("P(" + p1_X + ", " + p1_Y + ")", x + 10, y - 10);
   
   fill(255, 100, 100);
-  text("P'(" + p2_X + ", " + p2_Y + ")", xRuotato + 12, yRuotato + 12);
+  text("P'(" + p2_X + ", " + p2_Y + ")", xRuotato + 10, yRuotato + 10);
   
+  // Etichetta del Raggio R
+  textSize(14);
+  textAlign(CENTER, CENTER);
+  fill(255);
+  let vicinoX_P = origineX + (x - origineX) * 0.85;
+  let vicinoY_P = origineY + (y - origineY) * 0.85;
+  text("R", vicinoX_P, vicinoY_P + 12);
+  
+  // Scritta gradi dello spicchio verde
   fill(100, 255, 100);
-  textSize(16);
+  textSize(13); 
   let gradiIniziali = degrees(angoloIniziale);
-  text(nf(gradiIniziali, 1, 1) + "°", origineX + (raggio / 1.8) * cos(-angoloIniziale / 2), origineY - (raggio / 1.8) * sin(-angoloIniziale / 2));
+  let distanzaTestoFisso = raggio * 0.42; 
+  let angoloMedioVerde = angoloIniziale / 2; 
   
-  // MODIFICATO: L'etichetta "θ = ..." adesso segue dinamicamente l'arco ruotando in senso antiorario a metà dell'apertura corrente
+  let posX_Verde = origineX + distanzaTestoFisso * cos(angoloMedioVerde) - 8;
+  let posY_Verde = origineY - distanzaTestoFisso * sin(angoloMedioVerde) + 6;
+  text(nf(gradiIniziali, 1, 1) + "°", posX_Verde, posY_Verde);
+
+  // Etichetta theta dinamico
+  textSize(14);
   fill(100, 100, 255);
   let gradiEffettivi = degrees(angoloVisualizzato);
   let angoloMedioScritta = -angoloIniziale - (angoloVisualizzato / 2);
   text("θ = " + nf(gradiEffettivi, 1, 1) + "°", origineX + (raggio / 2.3) * cos(angoloMedioScritta), origineY + (raggio / 2.3) * sin(angoloMedioScritta));
 
-
-  // --- 8. BLOCCO SCRITTE RIPOSIZIONATO (IN ALTO E A DESTRA) ---
-  let colonnaDatiX = 490; 
-  let rigaY = 60;         
+  // --- 8. BLOCCO SCRITTE RIPOSIZIONATO (Spostato a sinistra per seguire il grafico) ---
+  let colonnaDatiX = 410; // Spostato a sinistra (era 490) per non lasciare troppo vuoto
+  let rigaY = 40;         
   
   textAlign(LEFT, TOP);
   noStroke();
   
-  // Dati dinamici del Punto Fisso P
-  textSize(15);
+  textSize(14);
   fill(100, 255, 100); 
   text(`Punto Fisso P: x = ${p1_X}, y = ${p1_Y}`, colonnaDatiX, rigaY);
   
-  // Dati dinamici del Punto Ruotato P'
   fill(255, 100, 100); 
-  text(`Punto Ruotato P': x' = ${p2_X}, y' = ${p2_Y}`, colonnaDatiX, rigaY + 30);
+  text(`Punto Ruotato P': x' = ${p2_X}, y' = ${p2_Y}`, colonnaDatiX, rigaY + 24);
   
-  // Stato Interattivo Corrente
-  textSize(13);
+  textSize(12);
   if (inMovimento) {
     fill(46, 213, 115); 
-    text("● STATO: IN ROTAZIONE CONTINUA", colonnaDatiX, rigaY + 80);
+    text("● STATO: IN ROTAZIONE CONTINUA", colonnaDatiX, rigaY + 65);
     fill(130);
-    textSize(12);
-    text("(Fai clic sullo schermo per mettere in pausa)", colonnaDatiX, rigaY + 105);
+    textSize(11);
+    text("(Fai clic sullo schermo per mettere in pausa)", colonnaDatiX, rigaY + 85);
   } else {
     fill(255, 159, 67); 
-    text("▮▮ STATO: IN PAUSA", colonnaDatiX, rigaY + 80);
+    text("▮▮ STATO: IN PAUSA", colonnaDatiX, rigaY + 65);
     fill(130);
-    textSize(12);
-    text("(Fai clic sullo schermo per riprendere)", colonnaDatiX, rigaY + 105);
+    textSize(11);
+    text("(Fai clic sullo schermo per riprendere)", colonnaDatiX, rigaY + 85);
   }
 }
