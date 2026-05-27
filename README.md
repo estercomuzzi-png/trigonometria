@@ -2,6 +2,7 @@ Ester Comuzzi | Irene Feligioni
 
 # Introduzione alla trigonometria
 Corso di Matematica per il Design - ISIA I Triennio Anno 2026
+
 https://estercomuzzi-png.github.io/trigonometria/
 # Descrizione del progetto
 Il progetto consiste in un sito web interattivo progettatto per spiegare la trigonometria in modo semplice e visivo, collegando la teoria matematica alla grafica. 
