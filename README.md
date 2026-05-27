@@ -1,8 +1,8 @@
 Ester Comuzzi | Irene Feligioni
 
 # Introduzione alla trigonometria
-Corso di Matematica per il Design | ISIA Triennio I 
-Anno 2026
+Corso di Matematica per il Design 
+ISIA Triennio I Anno 2026
 # Descrizione del progetto
 Il progetto consiste in un sito web interattivo progettatto per spiegare la trigonometria in modo semplice e visivo, collegando la teoria matematica alla grafica. 
 Il sito è strutturato così: 
