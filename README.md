@@ -8,7 +8,7 @@ https://estercomuzzi-png.github.io/trigonometria/
 Il progetto consiste in un sito web interattivo progettatto per spiegare la trigonometria in modo semplice e visivo, collegando la teoria matematica alla grafica. 
 Il sito segue la seguente struttura: 
 - Le basi e la storia: spieghiamo da dove nasce la trigonometria e come funziona il triagolo rettangolo 
-- La terora visiva: grazie al cerchio goniometrico e ai grafici interattivi, mostriamo le funzioni di seno, cose e tangente
+- La teoria visiva: grazie al cerchio goniometrico e ai grafici interattivi, mostriamo le funzioni di seno, cose e tangente
 - Applicazione pratica: mostriamo come far ruotare un punto nello spazio attorno a un perno.
   
 # Argomenti trattati
